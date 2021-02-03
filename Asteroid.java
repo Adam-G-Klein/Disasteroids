@@ -16,10 +16,11 @@ public class Asteroid extends Actor
     private GreenfootImage img;
     public Vector2 nextPos;
     public Vector2 currPos;
-    public Asteroid(int width, int height){
+    public Asteroid(int width, int height, float angle){
         img = new GreenfootImage("rock.png");
         img.scale(width,height);
         setImage(img);
+        movAngle = angle;
     }
     public void act() 
     {

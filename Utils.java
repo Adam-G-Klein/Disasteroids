@@ -40,23 +40,9 @@ public class Utils
     }
         
     public static Vector2 dirFromAngle(float angle){
-        float inQuadAngle;
-        int quad;
-        if(angle < 90){
-            inQuadAngle = angle;
-            quad = 0;
-        } else if (angle < 180){
-            inQuadAngle = angle - 90;
-            quad = 1;
-        } else if (angle < 270) {
-            inQuadAngle = angle - 180;
-            quad = 2;
-        } else {
-            inQuadAngle = angle - 270;
-            quad = 3;
-        }
-        return new Vector2(0,0);
-        
+        float xVal = (float) Math.cos(Math.toRadians(angle));
+        float yVal = (float) Math.sin(Math.toRadians(angle));
+        return new Vector2(xVal, yVal);
     }
 
 }
