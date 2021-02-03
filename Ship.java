@@ -14,8 +14,8 @@ public class Ship extends Actor
      */
     private GreenfootImage img;
     public Ship(){
-        img = new GreenfootImage("Undamaged-spaceship.png");
-        //img.scale(80,106);
+        img = new GreenfootImage("Spaceship-Damaged-Once.png");
+        //img.scale(160,212);
         setImage(img);
     }
     

@@ -33,7 +33,7 @@ public class Utils
             quadrant = dir.y > 0 ? 1 : 2;
         double inQuadAngle = Math.toDegrees(Math.atan(dir.y / dir.x)) ;
 
-        //float curr = currAngle % 360;
+        //float curr = currAngle % 360; 
         double simpleAngle = quadrant == 0 || quadrant == 3 ? inQuadAngle : inQuadAngle + 180;
         System.out.println("inquadAngle: " + inQuadAngle + " quad: " + quadrant + " simpleAngle: " + simpleAngle);
         return simpleAngle;   
