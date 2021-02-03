@@ -55,4 +55,14 @@ class Vector2 {
         return "vector2(" + this.x + ", " + this.y + ")";
     }
     
+    public static Vector2 add(Vector2 v1, Vector2 v2){
+        return new Vector2(v1.x + v2.x, v1.y + v2.y);
+    }
+    public static Vector2 sub(Vector2 v1, Vector2 v2){
+        return new Vector2(v1.x - v2.x, v1.y - v2.y);
+    }
+    public static Vector2 mult(Vector2 v1, float val){
+        return new Vector2(v1.x * val, v1.y * val);
+    }
+    
 }

@@ -35,7 +35,7 @@ public class Utils
 
         //float curr = currAngle % 360; 
         double simpleAngle = quadrant == 0 || quadrant == 3 ? inQuadAngle : inQuadAngle + 180;
-        System.out.println("inquadAngle: " + inQuadAngle + " quad: " + quadrant + " simpleAngle: " + simpleAngle);
+        //System.out.println("inquadAngle: " + inQuadAngle + " quad: " + quadrant + " simpleAngle: " + simpleAngle);
         return simpleAngle;   
     }
         
@@ -44,5 +44,30 @@ public class Utils
         float yVal = (float) Math.sin(Math.toRadians(angle));
         return new Vector2(xVal, yVal);
     }
+    
+    public static float toWorldAngle(float angle){
+        //I usually think of things 
+        // being rotated from positive x
+        return -angle;
+    }
+    
+    public static boolean offscreenX(World w, float side, Vector2 pos){
+        // only wanna check two sides with asteroids so they're not
+        // destroyed immediately after spawning
+        if(side > 0)
+            return pos.x >= w.getWidth() - 1;
+        else
+            return pos.x <= 0;
+    }
+    
+    public static boolean offscreenY(World w, float side, Vector2 pos){
+        // only wanna check two sides with asteroids so they're not
+        // destroyed immediately after spawning
+        if(side > 0)
+            return pos.y >= w.getHeight() - 1;
+        else
+            return pos.y <= 0;
+    }
+    
 
 }

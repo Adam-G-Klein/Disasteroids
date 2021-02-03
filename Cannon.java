@@ -24,12 +24,13 @@ public class Cannon extends Actor
         
         MouseInfo mouse = Greenfoot.getMouseInfo();
         if(mouse != null){
-            Vector2 dir = new Vector2(mouse.getX(), mouse.getY());            
-            System.out.println("mouse pos: " + dir.toString());
+            Vector2 dir = new Vector2(mouse.getX(), mouse.getY());   
             dir.add(-350,-350);
-            dir.normalize();
-            System.out.println("normalized dir: " + dir.toString());
-            setRotation((int)Utils.angleFromDir(dir));
+            //dead zone to stop spazzing when mouse over center of screen
+            if(dir.getMagnitude() >= 60){
+                dir.normalize();
+                setRotation((int)Utils.angleFromDir(dir));
+            }
         }
         
     }    
