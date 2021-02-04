@@ -28,13 +28,15 @@ public class Space extends World
         fc = new Facecam();
         addObject(fc, 625,67);
         addObject(new FacecamHelmet(), 625,57);
+        //addObject(new MiningParticles(), 250, 350);
+        //addObject(new CannonParticles(), 350, 250);
     }
     
     public void act(){
         spawnAsteroids();
         int num = Greenfoot.getRandomNumber(100);
         if(num == 5)
-            setEmotion("sad");
+            setEmotion("panik");
         if(num == 10)
             setEmotion("goodYell");
         if(num == 15)
@@ -62,7 +64,8 @@ public class Space extends World
         Vector2 spawnUnitVector = Utils.dirFromAngle(angle);
         return new Vector2(spawnUnitVector.x * 850, spawnUnitVector.y * 850);
     }
-    // For now you can set happy or sad
+    // For now you can set happy, sad, scared, panik, surprised, dizzy,
+    // angry, goodYell, sadYell, heh, glasses
     public static void setEmotion(String emotion){
         fc.setPicture(emotion);
     }
