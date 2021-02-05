@@ -13,13 +13,14 @@
                  * the 'Act' or 'Run' button gets pressed in the environment.
                  */
                 private GreenfootImage[] images;
-                private int imageBuffer = 5;
+                private int animationSpeed;
+                private int imageBuffer;
                 private int currentImage = 0;
                 public boolean animateBuffer()
                 {
                     if (imageBuffer < 1)
                     {
-                        imageBuffer = 4;
+                        imageBuffer = animationSpeed;
                         return true;
                     }
                     else
@@ -27,8 +28,10 @@
                         
                     return false;
                 }
-                public AnimatedActor(String basename, String suffix, int noOfImages, int rotation)
+                public AnimatedActor(String basename, String suffix, int noOfImages, int rotation, int speed)
                 {
+                    animationSpeed = speed;
+                    imageBuffer = speed;
                     images = new GreenfootImage[noOfImages];
                     
                     for(int i=0; i < noOfImages; i++) {

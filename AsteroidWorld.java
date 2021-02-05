@@ -23,6 +23,7 @@ public abstract class AsteroidWorld extends World
         currentLevel = level;
         if (currentLevel == 0){
             populateWorldList();
+            currentLevel = 6;
         }
     }
     public void nextLevel() {
