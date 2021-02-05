@@ -16,7 +16,7 @@ public class Manual3 extends AsteroidWorld
      */
     public Manual3()
     {
-       super(6, 700, 700);
+       super(6, 600, 600);
     }
     public void act() {
        if (Greenfoot.mouseClicked(button)) {
@@ -25,7 +25,7 @@ public class Manual3 extends AsteroidWorld
     }
     public void populate(){
        img = new GreenfootImage("manual3.png");
-       populateStoryImage(img, 700, 700);
+       populateStoryImage(img, 600, 600);
        button = new Button(Color.BLUE, Color.BLUE.darker(), Color.WHITE, "Play", 100, 50);
        addObject(button, getWidth() - 55, getHeight() - 30); 
     }

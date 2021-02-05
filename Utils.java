@@ -55,7 +55,7 @@ public class Utils
             inQuadAngle = angle - 270;
             quad = 3;
         }
-        return new Vector2(0,0);
+        return new Vector2(0,0);    
         
     }
 
