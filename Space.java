@@ -49,6 +49,8 @@ public class Space extends AsteroidWorld
         if(Greenfoot.mouseClicked(null)){
             spawnCannonParticles();
             spawnMiningParticles();
+            //spawnAsteroidBlowupParticles();
+            spawnAsteroidCrackingParticles();
         }
     }
     private void spawnCannonParticles(){
@@ -73,6 +75,12 @@ public class Space extends AsteroidWorld
         addObject(new MiningParticles((int)shipRot), (int)(300 + 100 * displacement.x),
                                          (int)(300 + 100 * displacement.y));
         setEmotion("goodYell");    
+    }
+    private void spawnAsteroidBlowupParticles(){
+       addObject(new AsteroidBlowupParticles(0), 200, 200); 
+    }
+    private void spawnAsteroidCrackingParticles(){
+       addObject(new AsteroidCrackingParticles(0), 400, 400); 
     }
     
     private void spawnAsteroid(){

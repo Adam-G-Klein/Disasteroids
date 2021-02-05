@@ -1,21 +1,20 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class MiningParticles here.
+ * Write a description of class AsteroidBlowupParticles here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class MiningParticles extends AnimatedActor
+public class AsteroidBlowupParticles extends AnimatedActor
 {
     /**
-     * Act - do whatever the MiningParticles wants to do. This method is called whenever
+     * Act - do whatever the CannonParticles wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    public MiningParticles(int rotation)
+    public AsteroidBlowupParticles(int rotation)
     {
-        super("Mining_Particles",".png",9, rotation + 90, 5);
-        System.out.println(rotation);
+        super("AsteroidBlowup",".png", 5, rotation, 8);
     }
     public void act() 
     {
@@ -24,7 +23,7 @@ public class MiningParticles extends AnimatedActor
         }
         else{
             getWorld().removeObject(this);
-        }  
+        }
         // Add your action code here.
     }    
 }

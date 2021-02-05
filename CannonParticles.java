@@ -14,7 +14,7 @@ public class CannonParticles extends AnimatedActor
      */
     public CannonParticles(int rotation)
     {
-        super("Cannon_Particles_resized",".png", 7, rotation + 90);
+        super("Cannon_Particles_resized",".png", 7, rotation + 90, 5);
     }
     public void act() 
     {
