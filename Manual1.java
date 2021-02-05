@@ -24,7 +24,9 @@ public class Manual1 extends AsteroidWorld
        }
     }
     public void populate(){
-        img = new GreenfootImage("manual1.png");
-        populateStoryImage(img, 700, 700, button, "Read");
+       img = new GreenfootImage("manual1.png");
+       populateStoryImage(img, 700, 700);
+       button = new Button(Color.BLUE, Color.BLUE.darker(), Color.WHITE, "Read", 100, 50);
+       addObject(button, getWidth() - 55, getHeight() - 30); 
     }
 }

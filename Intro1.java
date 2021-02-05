@@ -20,13 +20,15 @@ public class Intro1 extends AsteroidWorld
         super(0, 650, 480);
         populate();
     }
-    public void act() {
+    public void act() {  
         if (Greenfoot.mouseClicked(button)) {
             nextLevel();
         }
     }
     public void populate(){
-        img = new GreenfootImage("Intro-0_resized.png");
-        populateStoryImage(img, 650, 480, button, "Next");
+       img = new GreenfootImage("Intro-0_resized.png"); 
+       populateStoryImage(img, 650, 480);
+       button = new Button(Color.BLUE, Color.BLUE.darker(), Color.WHITE, "Next", 100, 50);
+       addObject(button, getWidth() - 55, getHeight() - 30);  
     }
 }
