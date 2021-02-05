@@ -38,14 +38,17 @@ public abstract class AsteroidWorld extends World
         worldList.add(new Intro2());
         worldList.add(new Intro3());
         worldList.add(new Intro4());
+        worldList.add(new Manual1());
+        worldList.add(new Manual2());
+        worldList.add(new Manual3());
         worldList.add(new Space());
     }
-    public void populateStoryImage(GreenfootImage img, Button button, String buttonText){
+    public void populateStoryImage(GreenfootImage img, Integer imgX, Integer imgY, Button button, String buttonText){
        removeAllObjects();
        img = new GreenfootImage(img);
-       img.scale(650,480);
+       img.scale(imgX, imgY);
        setBackground(img);
        button = new Button(Color.BLUE, Color.BLUE.darker(), Color.WHITE, buttonText, 100, 50);
-       addObject(button, 595, 450);  
+       addObject(button, getWidth() - 55, getHeight() - 30);  
     }
 }

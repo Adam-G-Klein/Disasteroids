@@ -1,13 +1,12 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Intro1 here.
+ * Write a description of class Manual1 here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-
-public class Intro4 extends AsteroidWorld
+public class Manual1 extends AsteroidWorld
 {
     Button button;
     GreenfootImage img;
@@ -15,9 +14,9 @@ public class Intro4 extends AsteroidWorld
      * Constructor for objects of class Intro1.
      * 
      */
-    public Intro4()
+    public Manual1()
     {
-       super(3, 650, 480);
+       super(4, 700, 700);
     }
     public void act() {
        if (Greenfoot.mouseClicked(button)) {
@@ -25,7 +24,7 @@ public class Intro4 extends AsteroidWorld
        }
     }
     public void populate(){
-        img = new GreenfootImage("Intro_3_resized.png");
-        populateStoryImage(img, 650, 480, button, "Next");
+        img = new GreenfootImage("manual1.png");
+        populateStoryImage(img, 700, 700, button, "Read");
     }
 }

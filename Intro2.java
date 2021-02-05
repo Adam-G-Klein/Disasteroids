@@ -26,6 +26,6 @@ public class Intro2 extends AsteroidWorld
     }
     public void populate(){
         img = new GreenfootImage("Intro_1_resized.png");
-        populateStoryImage(img, button, "next");
+        populateStoryImage(img, 650, 480, button, "Next");
     }
 }
