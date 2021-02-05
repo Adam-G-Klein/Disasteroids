@@ -14,7 +14,8 @@ public class FacecamHelmet extends Actor
      */
     private GreenfootImage img;
     public FacecamHelmet(){
-        img = new GreenfootImage("facecam-helmet.png");
+        img = new GreenfootImage("facecam-helmet-2.png");
+        img.setTransparency(175);
         img.scale(106,104);
         setImage(img);
     }

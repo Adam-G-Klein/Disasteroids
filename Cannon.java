@@ -1,5 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.lang.Math.*;
+import java.util.ArrayList;
 /**
  * Write a description of class Cannon here.
  * 
@@ -13,6 +14,7 @@ public class Cannon extends Actor
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     private GreenfootImage img;
+    private Integer rotation;
     public Cannon(){
         img = new GreenfootImage("Undamaged-Spaceship-Down-sized-2.png");
         setImage(img);
@@ -21,22 +23,27 @@ public class Cannon extends Actor
     
     public void act() 
     {
-        
         MouseInfo mouse = Greenfoot.getMouseInfo();
         if(mouse != null){
-            Vector2 dir = new Vector2(mouse.getX(), mouse.getY());   
-            dir.add(-350,-350);
+            Vector2 dir = new Vector2(mouse.getX(), mouse.getY());            
+            dir.add(-300,-300);
             //dead zone to stop spazzing when mouse over center of screen
             if(dir.getMagnitude() >= 60){
                 dir.normalize();
-                setRotation((int)Utils.angleFromDir(dir));
+                rotation = (int)Utils.angleFromDir(dir);
+                setRotation(rotation);
             }
         }
         
-    }    
-    
-    
-    
-    
-    
+    }
+    public Integer GetRotation(){
+        return rotation;
+    }
+    public ArrayList<Double> GetPosition(){
+        double angleRad = Math.toRadians((float)rotation);
+        ArrayList<Double> res = new ArrayList<Double>();
+        res.add(Math.cos(angleRad));
+        res.add(Math.sin(angleRad));
+        return res;
+    }
 }

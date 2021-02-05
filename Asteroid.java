@@ -26,42 +26,33 @@ public class Asteroid extends Actor
         movPerAct = Vector2.mult(dir,speed);
         //TODO handle mov magnitudes < 1
         //float mag = movPerAct 
-        /*if(movPerAct.getMagnitude() < 1.1f){
-            turnsPerMov = (int)(1 / movPerAct.getMagnitu);
-            movSpd = 1;
-        }*/
+        if(movPerAct.getMagnitude() < 1.1f){
+            turnsPerMov = (int)(1 / movPerAct.getMagnitude());
+            movPerAct.normalize();
+        } else {
+            turnsPerMov = 1;
+        }
         Vector2 sizeVector = new Vector2(width, height);
         size = sizeVector.getMagnitude();
-        
-        
-        /*if(speed < 1) {
-
-        } else {
-            movSpd = speed;
-            turnsPerMov = 1;
-        }*/
     }
     public void act() 
     {
         /*
         nextPos = Vector2.moveAtAngle(new Vector2(getX(), getY()), movAngle, 3);
         setLocation((int)nextPos.x, (int)nextPos.y);*/
-        /*
+        currPos = new Vector2(getX(), getY());
+        Vector2 nextPos = currPos;
         if(turnCnt + 1 == turnsPerMov) {
             currPos = new Vector2(getX(), getY());
-            setLocation((int)(currPos.x + (movDir.x * movSpd)), (int)(currPos.y + (movDir.y * movSpd)));
+            nextPos = new Vector2(currPos.x + movPerAct.x, currPos.y + movPerAct.y);
             turnCnt = 0;
         } else {
             turnCnt += 1;
-        }*/
-        currPos = new Vector2(getX(), getY());
-        Vector2 nextPos;
+        }
         if(Utils.offscreenX(getWorld(), movPerAct.x, currPos) 
             || Utils.offscreenY(getWorld(), movPerAct.y, currPos)){
             getWorld().removeObject(this);
             return;
-        }else{
-            nextPos = new Vector2(currPos.x + movPerAct.x, currPos.y + movPerAct.y);
         }
         /*Vector2 leadingEdge = new Vector2(nextPos.x + size, nextPos.y + size);
         if(leadingEdge.x < 700 && leadingEdge.x > 0 && leadingEdge.y > 0 && leadingEdge.y < 700)

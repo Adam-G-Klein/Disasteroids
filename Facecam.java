@@ -34,6 +34,7 @@ public class Facecam extends Actor
         for (GreenfootImage img : EmotionToImage.values())
         {
             img.scale(80,75);
+            img.setTransparency(175);
         }
     }
     private void populateHT(){
