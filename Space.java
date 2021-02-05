@@ -15,6 +15,7 @@ public class Space extends AsteroidWorld
      */
     private GreenfootImage img;
     private static Facecam fc;
+    private Ship ship;
     public Space()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
@@ -34,8 +35,8 @@ public class Space extends AsteroidWorld
         if(num == 20)
             setEmotion("glasses");
             
-        int randVal = Utils.random(0,100);
-        if(randVal > 98)
+        int randVal = Utils.random(0,1000);
+        if(Greenfoot.mouseClicked(null))
             spawnAsteroid();
             //addObject(new Asteroid(10, 10, new Vector2(-1, 1f), 1f), (int) 700, (int) 0);
         /*} else if (randVal > 50) {
@@ -66,15 +67,11 @@ public class Space extends AsteroidWorld
         setEmotion("goodYell");    
     }
     private void spawnMiningParticles(){
-        ArrayList<Actor> ships = new ArrayList<Actor>();
-        for (Object obj : getObjects(Ship.class)) {
-            ships.add((Actor)obj);
-        }
-        Ship ship = (Ship)ships.get(0);
-        ArrayList<Double> shipPos = new ArrayList<Double>();
-        shipPos = ship.GetPosition();
-        addObject(new MiningParticles(ship.GetRotation()), (int)(300 + 100 * shipPos.get(0)),
-                                         (int)(300 + 100 * shipPos.get(1)));
+        Vector2 shipPos = ship.getPosition();
+        float shipRot = ship.getBeamAngle();
+        Vector2 displacement = Utils.dirFromAngle(shipRot);
+        addObject(new MiningParticles((int)shipRot), (int)(300 + 100 * displacement.x),
+                                         (int)(300 + 100 * displacement.y));
         setEmotion("goodYell");    
     }
     
@@ -83,8 +80,17 @@ public class Space extends AsteroidWorld
         Vector2 unit = getSpawnUnit(angle);
         Vector2 spawnPos = getSpawnPos(unit);
         Vector2 movDir = getMovDir(spawnPos);
+        Vector2 sizeAndSpeed = getSizeAndSpeed();
         //System.out.println("unit: " + unit.toString() + " spawnPos: " + spawnPos.toString() + " movDir: " + movDir.toString());
-        addObject(new Asteroid(30, 30, movDir, 0.01f), (int) spawnPos.x, (int) spawnPos.y);
+        addObject(new Asteroid((int)sizeAndSpeed.x, movDir, sizeAndSpeed.y), (int) spawnPos.x, (int) spawnPos.y);
+    }
+    
+    private Vector2 getSizeAndSpeed(){
+        int seed = Utils.random(1,6);
+        float size = seed * 20;
+        float speed = 1f / (seed * 1000);
+        Vector2 ret = new Vector2(size, speed);
+        return ret;
     }
     
     private Vector2 getSpawnPos(Vector2 unit){
@@ -113,13 +119,14 @@ public class Space extends AsteroidWorld
         img = new GreenfootImage("background.jpg");
         img.scale(700,700);
         setBackground(img);
+        ship = new Ship(this);
         addObject(new Cannon(), 300, 300);
-        addObject(new Ship(), 300, 300);
+        addObject(ship, 300, 300);
         addObject(new FacecamFrame(), 525,55);
         fc = new Facecam();
         addObject(fc, 525,67);
         addObject(new FacecamHelmet(), 525,57);
-        setPaintOrder(Ship.class, Facecam.class, FacecamHelmet.class, FacecamFrame.class, Cannon.class, Asteroid.class);
+        setPaintOrder(CircleCollider.class, Ship.class, Facecam.class, FacecamHelmet.class, FacecamFrame.class, Cannon.class, Asteroid.class);
     }
     
 }

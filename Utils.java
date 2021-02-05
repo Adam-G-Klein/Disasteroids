@@ -39,7 +39,7 @@ public class Utils
         return simpleAngle;   
     }
         
-    public static Vector2 dirFromAngle(float angle){
+    public static Vector2 dirFromAngle(float angle) {
         float xVal = (float) Math.cos(Math.toRadians(angle));
         float yVal = (float) Math.sin(Math.toRadians(angle));
         return new Vector2(xVal, yVal);
@@ -55,7 +55,7 @@ public class Utils
         // only wanna check two sides with asteroids so they're not
         // destroyed immediately after spawning
         if(side > 0)
-            return pos.x >= w.getWidth() - 1;
+            return pos.x >= w.getWidth() - 3;
         else
             return pos.x <= 0;
     }
@@ -64,7 +64,7 @@ public class Utils
         // only wanna check two sides with asteroids so they're not
         // destroyed immediately after spawning
         if(side > 0)
-            return pos.y >= w.getHeight() - 1;
+            return pos.y >= w.getHeight() - 3;
         else
             return pos.y <= 0;
     }

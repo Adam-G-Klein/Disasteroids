@@ -16,14 +16,16 @@ public abstract class AsteroidWorld extends World
     static ArrayList<AsteroidWorld> worldList = new ArrayList<AsteroidWorld>();
     Integer currentLevel;
     public abstract void populate();
+    private boolean debugMode = true;
     public AsteroidWorld(Integer level, Integer x, Integer y)
     {    
-        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
+
         super(x, y, 1);
         currentLevel = level;
         if (currentLevel == 0){
             populateWorldList();
         }
+        if(debugMode) currentLevel = 6;
     }
     public void nextLevel() {
        worldList.get(currentLevel).populate();

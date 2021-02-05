@@ -1,5 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-import java.util.ArrayList;
+import java.util.*;
 /**
  * Write a description of class Ship here.
  * 
@@ -14,14 +14,28 @@ public class Ship extends Actor
      */
     private GreenfootImage img;
     private int rotation;
-    public Ship(){
+    //beam colliders
+    private CircleCollider shipColl = new CircleCollider(125, "Ship");
+    private List<CircleCollider> beamColls = new ArrayList<CircleCollider>();
+    private int numColliders = 5;
+    private float betweenColliders = 20f;
+    private int beamColliderRadius = 30;
+    public Ship(World w){
         img = new GreenfootImage("Spaceship-Damaged-Once.png");
         //img.scale(160,212);
         setImage(img);
+        CircleCollider c;
+        for(int i = 0; i < numColliders; i+=1){
+            c = new CircleCollider(beamColliderRadius, "Beam");
+            w.addObject(c, 300, 300);
+            beamColls.add(c);
+        }
+        w.addObject(shipColl, 300, 305);
     }
     
     public void act() 
     {
+        placeColliders();
         if(Greenfoot.isKeyDown("a") || Greenfoot.isKeyDown("left")){
             rotation = getRotation() - 2;
             setRotation(rotation);
@@ -31,14 +45,28 @@ public class Ship extends Actor
             setRotation(rotation);
         }
     }
-    public int GetRotation(){
+    public int getBeamAngle(){
         return rotation - 180;
     }
-    public ArrayList<Double> GetPosition(){
-        double angleRad = Math.toRadians((float)rotation - 180);
-        ArrayList<Double> res = new ArrayList<Double>();
-        res.add(Math.cos(angleRad));
-        res.add(Math.sin(angleRad));
-        return res;
+    public Vector2 getPosition(){
+        return new Vector2(getX(), getY());
+    }
+    private void placeColliders(){
+        Vector2 centerPos = Utils.dirFromAngle(getBeamAngle());
+        int toEachSide = (int) -Math.floor(numColliders/2);
+        int colliderNum = -toEachSide;
+        Vector2 collPos;
+        System.out.println("beamAngle: " + getBeamAngle() + " angs: ");
+        for(int i = 0; i < numColliders; i += 1){
+            collPos = Utils.dirFromAngle(getBeamAngle() - 80 + (colliderNum * betweenColliders));
+            //System.out.print(" " + (getBeamAngle() + (colliderNum * betweenColliders)) + " ");
+            collPos.multiply(80,80);
+            collPos.add(300,300);
+            beamColls
+                .get(i)
+                .setLoc(collPos);
+            colliderNum += 1;
+        }
+        
     }
 }
