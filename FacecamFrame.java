@@ -14,7 +14,8 @@ public class FacecamFrame extends Actor
      */
     private GreenfootImage img;
     public FacecamFrame(){
-        img = new GreenfootImage("facecam-frame.png");
+        img = new GreenfootImage("facecam-frame-2.png");
+        img.setTransparency(175);
         img.scale(150,112);
         setImage(img);
     }

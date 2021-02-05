@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Space extends World
+public class Space extends AsteroidWorld
 {
 
     /**
@@ -18,16 +18,7 @@ public class Space extends World
     public Space()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(700, 700, 1); 
-        img = new GreenfootImage("background.jpg");
-        img.scale(700,700);
-        setBackground(img);
-        addObject(new Cannon(), 350, 350);
-        addObject(new Ship(), 350, 350);
-        addObject(new FacecamFrame(), 625,55);
-        fc = new Facecam();
-        addObject(fc, 625,67);
-        addObject(new FacecamHelmet(), 625,57);
+        super(4, 700, 700); 
         //addObject(new MiningParticles(), 250, 350);
         //addObject(new CannonParticles(), 350, 250);
     }
@@ -69,4 +60,17 @@ public class Space extends World
     public static void setEmotion(String emotion){
         fc.setPicture(emotion);
     }
+    public void populate(){
+        removeAllObjects();
+        img = new GreenfootImage("background.jpg");
+        img.scale(700,700);
+        setBackground(img);
+        addObject(new Cannon(), 350, 350);
+        addObject(new Ship(), 350, 350);
+        addObject(new FacecamFrame(), 625,55);
+        fc = new Facecam();
+        addObject(fc, 625,67);
+        addObject(new FacecamHelmet(), 625,57);
+    }
+    
 }
