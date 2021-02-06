@@ -13,10 +13,9 @@ public class AsteroidBlowupParticles extends AnimatedActor
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
 
-    public AsteroidBlowupParticles(int rotation)
+    public AsteroidBlowupParticles(int rotation, int size)
     {
-        super("AsteroidBlowup",".png", 5, rotation, 8);
-
+        super("AsteroidBlowup",".png", 5, rotation, 8, size * 2, size * 2);
     }
     public void act() 
     {

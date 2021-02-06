@@ -16,7 +16,7 @@ public abstract class AsteroidWorld extends World
     static ArrayList<AsteroidWorld> worldList = new ArrayList<AsteroidWorld>();
     Integer currentLevel;
     public abstract void populate();
-    private boolean debugMode = true;
+    private boolean debugMode = false;
     public AsteroidWorld(Integer level, Integer x, Integer y)
     {    
 
@@ -24,9 +24,11 @@ public abstract class AsteroidWorld extends World
         currentLevel = level;
         if (currentLevel == 0){
             populateWorldList();
+            currentLevel = 0;
+        }
+        if(debugMode){
             currentLevel = 6;
         }
-        if(debugMode) currentLevel = 6;
     }
     public void nextLevel() {
        worldList.get(currentLevel).populate();
@@ -45,6 +47,7 @@ public abstract class AsteroidWorld extends World
         worldList.add(new Manual2());
         worldList.add(new Manual3());
         worldList.add(new Space());
+        worldList.add(new EndScreen());
     }
     public void populateStoryImage(GreenfootImage img, Integer imgX, Integer imgY){
        removeAllObjects();

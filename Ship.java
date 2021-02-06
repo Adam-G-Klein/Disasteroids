@@ -20,6 +20,8 @@ public class Ship extends Actor
     private int numColliders = 5;
     private float betweenColliders = 20f;
     private int beamColliderRadius = 30;
+    private boolean miningStatus = false;
+    private int asteroidsBeingMined = 0;
     public Ship(World w){
         img = new GreenfootImage("Spaceship-Undamaged.png");
         //img.scale(160,212);
@@ -36,13 +38,15 @@ public class Ship extends Actor
     public void act() 
     {
         placeColliders();
-        if(Greenfoot.isKeyDown("a") || Greenfoot.isKeyDown("left")){
-            rotation = getRotation() - 2;
-            setRotation(rotation);
-        }
-        if(Greenfoot.isKeyDown("d") || Greenfoot.isKeyDown("right")){
-            rotation = getRotation() + 2;
-            setRotation(rotation);
+        if(!miningStatus){
+            if(Greenfoot.isKeyDown("a") || Greenfoot.isKeyDown("left")){
+                rotation = getRotation() - 2;
+                setRotation(rotation);
+            }
+            if(Greenfoot.isKeyDown("d") || Greenfoot.isKeyDown("right")){
+                rotation = getRotation() + 2;
+                setRotation(rotation);
+            }
         }
     }
     public int getBeamAngle(){
@@ -68,5 +72,17 @@ public class Ship extends Actor
             colliderNum += 1;
         }
         
+    }
+    public void setMining(boolean mining){
+        miningStatus = mining;
+    }
+    public void updateAsteroidsBeingMined(int amount){
+        asteroidsBeingMined = asteroidsBeingMined + amount;
+        if(asteroidsBeingMined == 0){
+            setMining(false);
+        }
+        else{
+            setMining(true);
+        }
     }
 }

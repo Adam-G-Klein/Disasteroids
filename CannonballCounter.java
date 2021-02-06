@@ -12,10 +12,11 @@ public class CannonballCounter extends Actor
      * Act - do whatever the CannonballCounter wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    private int cannonballs = 0;
+    private int cannonballs;
     private GreenfootImage image;
-    public CannonballCounter(){
-       image = new GreenfootImage("Shots: " + cannonballs, 30, Color.WHITE, Color.BLACK);
+    public CannonballCounter(int startingCannonballs){
+       cannonballs = startingCannonballs;
+       image = new GreenfootImage("Ammo: " + cannonballs, 30, Color.WHITE, Color.BLACK);
        setImage(image);
     }
     public void act() 
@@ -24,7 +25,11 @@ public class CannonballCounter extends Actor
     }
     public void updateCannonballs(int amount){
        cannonballs += amount;
-       image = new GreenfootImage("Shots: " + cannonballs, 30, Color.WHITE, Color.BLACK);
+       image = new GreenfootImage("Ammo: " + cannonballs, 30, Color.WHITE, Color.BLACK);
        setImage(image);
     }
+    public int getCannonballs(){
+       return cannonballs;
+    }
+    
 }

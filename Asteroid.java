@@ -22,6 +22,7 @@ public class Asteroid extends Actor
     private float size;
     private boolean hasBeenOnScreen = false;
     private boolean beingMined = false;
+    private Ship ship;
     public Asteroid(int radius, Vector2 dir, float speed){
         img = new GreenfootImage("Asteroid.png");
         img.scale(radius,radius);
@@ -77,16 +78,17 @@ public class Asteroid extends Actor
                 beingMined = true;
                 movPerAct = new Vector2(0,0);
                 Space space = (Space)getWorld();
+                ship = space.getShip();
+                ship.updateAsteroidsBeingMined(1);
                 space.updateCBC(1);
-                space.increasePlayerAmmo(1);
-                space.addObject(new AsteroidCrackingParticles(0, this), getX(), getY());
+                space.addObject(new AsteroidCrackingParticles(0, this, (int)size, ship), getX(), getY());
                 //getWorld().removeObject(this);
                 return;
             }
             else if(coll.tag == "Ship"){
                 Space s = (Space)getWorld();
-                s.playerDamaged();
                 getWorld().removeObject(this);
+                s.playerDamaged();
                 return;
             }
         }

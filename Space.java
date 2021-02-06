@@ -19,7 +19,7 @@ public class Space extends AsteroidWorld
     private CannonballCounter cbc;
     private Cannon cannon;
     public int playerHealth = 3;
-    public int playerAmmo = 0;
+    private int startingCannonballs = 10;
     public Space()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
@@ -51,12 +51,14 @@ public class Space extends AsteroidWorld
             addObject(new Asteroid(10, 10, new Vector2(-1, -1f), 1), (int) 700, (int) 700);
         }*/
         if(Greenfoot.mouseClicked(null)){
-            spawnCannonParticles();
-            spawnMiningParticles();
-            // Proof of concept that shooting a cannonball removes one ammo;
-            updateCBC(-1);
-            //spawnAsteroidBlowupParticles();
-            //spawnAsteroidCrackingParticles();
+            if(cbc.getCannonballs() > 0){
+                spawnCannonParticles();
+                spawnMiningParticles();
+                // Proof of concept that shooting a cannonball removes one ammo;
+                updateCBC(-1);
+                //spawnAsteroidBlowupParticles();
+                //spawnAsteroidCrackingParticles();
+            }
         }
     }
     private void spawnCannonParticles(){
@@ -138,7 +140,7 @@ public class Space extends AsteroidWorld
         addObject(cannon, 300, 300);
         addObject(ship, 300, 300);
         addObject(new FacecamFrame(), 525,55);
-        cbc = new CannonballCounter();
+        cbc = new CannonballCounter(startingCannonballs);
         addObject(cbc, 525,125);
         fc = new Facecam();
         addObject(fc, 525,67);
@@ -156,15 +158,13 @@ public class Space extends AsteroidWorld
             ship.setImage("Spaceship-Damaged-Twice.png");
         }
         else{
-            removeObject(ship);
-            removeObject(cannon);
+            nextLevel();
         }
-    }
-    public void increasePlayerAmmo(int amount){
-        playerAmmo = playerAmmo + amount;
-        System.out.println(playerAmmo);
     }
     public void updateCBC(int amount){
         cbc.updateCannonballs(amount);
+    }
+    public Ship getShip(){
+        return ship;
     }
 }

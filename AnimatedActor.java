@@ -28,7 +28,7 @@
                         
                     return false;
                 }
-                public AnimatedActor(String basename, String suffix, int noOfImages, int rotation, int speed)
+                public AnimatedActor(String basename, String suffix, int noOfImages, int rotation, int speed, int sizeX, int sizeY)
                 {
                     animationSpeed = speed;
                     imageBuffer = speed;
@@ -36,6 +36,7 @@
                     
                     for(int i=0; i < noOfImages; i++) {
                         GreenfootImage img = new GreenfootImage(basename + '-' + i + suffix);
+                        img.scale(sizeX, sizeY);
                         img.rotate(rotation);
                         images[i] = img;
                     }
