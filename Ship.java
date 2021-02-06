@@ -21,7 +21,7 @@ public class Ship extends Actor
     private float betweenColliders = 20f;
     private int beamColliderRadius = 30;
     public Ship(World w){
-        img = new GreenfootImage("Spaceship-Damaged-Once.png");
+        img = new GreenfootImage("Spaceship-Undamaged.png");
         //img.scale(160,212);
         setImage(img);
         CircleCollider c;

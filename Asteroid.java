@@ -21,8 +21,9 @@ public class Asteroid extends Actor
     public Vector2 currPos;
     private float size;
     private boolean hasBeenOnScreen = false;
+    private boolean beingMined = false;
     public Asteroid(int radius, Vector2 dir, float speed){
-        img = new GreenfootImage("rock.png");
+        img = new GreenfootImage("Asteroid.png");
         img.scale(radius,radius);
         setImage(img);
         movPerAct = Vector2.mult(dir,speed);
@@ -72,11 +73,19 @@ public class Asteroid extends Actor
             (int) (leadingEdge.y), 
             CircleCollider.class);
         for(CircleCollider coll : collidersAtEdge){
-            if(coll.tag == "Beam"){
-                getWorld().removeObject(this);
+            if(coll.tag == "Beam" && beingMined == false){
+                beingMined = true;
+                movPerAct = new Vector2(0,0);
+                Space space = (Space)getWorld();
+                space.updateCBC(1);
+                space.increasePlayerAmmo(1);
+                space.addObject(new AsteroidCrackingParticles(0, this), getX(), getY());
+                //getWorld().removeObject(this);
                 return;
             }
             else if(coll.tag == "Ship"){
+                Space s = (Space)getWorld();
+                s.playerDamaged();
                 getWorld().removeObject(this);
                 return;
             }

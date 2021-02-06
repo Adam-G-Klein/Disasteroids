@@ -20,8 +20,8 @@ public class CircleCollider extends Actor
         this.tag = tag;
         img = new GreenfootImage("circle.png");
         img.scale(radius, radius);
-        if(tag == "Beam")
-            img.setTransparency(0);
+        //if(tag == "Beam")
+        img.setTransparency(0);
         setImage(img);
     }
     

@@ -12,9 +12,11 @@ public class AsteroidCrackingParticles extends AnimatedActor
      * Act - do whatever the CannonParticles wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    public AsteroidCrackingParticles(int rotation)
+    private Asteroid a;
+    public AsteroidCrackingParticles(int rotation, Asteroid asteroid)
     {
         super("AsteroidCracking",".png", 7, rotation, 20);
+        a = asteroid;
     }
     public void act() 
     {
@@ -22,8 +24,10 @@ public class AsteroidCrackingParticles extends AnimatedActor
             super.act();    
         }
         else{
-            getWorld().addObject(new AsteroidBlowupParticles(0), getX(), getY());
-            getWorld().removeObject(this);
+            World space = getWorld();
+            space.removeObject(a);    
+            space.addObject(new AsteroidBlowupParticles(0), getX(), getY());
+            space.removeObject(this);
         }
         // Add your action code here.
     }    

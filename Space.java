@@ -16,6 +16,10 @@ public class Space extends AsteroidWorld
     private GreenfootImage img;
     private static Facecam fc;
     private Ship ship;
+    private CannonballCounter cbc;
+    private Cannon cannon;
+    public int playerHealth = 3;
+    public int playerAmmo = 0;
     public Space()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
@@ -49,8 +53,10 @@ public class Space extends AsteroidWorld
         if(Greenfoot.mouseClicked(null)){
             spawnCannonParticles();
             spawnMiningParticles();
+            // Proof of concept that shooting a cannonball removes one ammo;
+            updateCBC(-1);
             //spawnAsteroidBlowupParticles();
-            spawnAsteroidCrackingParticles();
+            //spawnAsteroidCrackingParticles();
         }
     }
     private void spawnCannonParticles(){
@@ -76,12 +82,12 @@ public class Space extends AsteroidWorld
                                          (int)(300 + 100 * displacement.y));
         setEmotion("goodYell");    
     }
-    private void spawnAsteroidBlowupParticles(){
-       addObject(new AsteroidBlowupParticles(0), 200, 200); 
-    }
-    private void spawnAsteroidCrackingParticles(){
-       addObject(new AsteroidCrackingParticles(0), 400, 400); 
-    }
+    //private void spawnAsteroidBlowupParticles(){
+    //   addObject(new AsteroidBlowupParticles(0), 200, 200); 
+    //}
+    //private void spawnAsteroidCrackingParticles(){
+    //   addObject(new AsteroidCrackingParticles(0), 400, 400); 
+    //}
     
     private void spawnAsteroid(){
         float angle = getSpawnAngle();
@@ -128,13 +134,37 @@ public class Space extends AsteroidWorld
         img.scale(700,700);
         setBackground(img);
         ship = new Ship(this);
-        addObject(new Cannon(), 300, 300);
+        cannon = new Cannon();
+        addObject(cannon, 300, 300);
         addObject(ship, 300, 300);
         addObject(new FacecamFrame(), 525,55);
+        cbc = new CannonballCounter();
+        addObject(cbc, 525,125);
         fc = new Facecam();
         addObject(fc, 525,67);
         addObject(new FacecamHelmet(), 525,57);
-        setPaintOrder(CircleCollider.class, Ship.class, Facecam.class, FacecamHelmet.class, FacecamFrame.class, Cannon.class, Asteroid.class);
+        setPaintOrder(CircleCollider.class, AsteroidCrackingParticles.class, AsteroidBlowupParticles.class, 
+                      Ship.class, Facecam.class, FacecamHelmet.class, FacecamFrame.class, Cannon.class, Asteroid.class);
     }
-    
+    public void playerDamaged(){
+        if (playerHealth == 3){
+            playerHealth -= 1;
+            ship.setImage("Spaceship-Damaged-Once.png");
+        }
+        else if(playerHealth == 2){
+            playerHealth -= 1;
+            ship.setImage("Spaceship-Damaged-Twice.png");
+        }
+        else{
+            removeObject(ship);
+            removeObject(cannon);
+        }
+    }
+    public void increasePlayerAmmo(int amount){
+        playerAmmo = playerAmmo + amount;
+        System.out.println(playerAmmo);
+    }
+    public void updateCBC(int amount){
+        cbc.updateCannonballs(amount);
+    }
 }
