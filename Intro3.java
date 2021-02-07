@@ -17,7 +17,7 @@ public class Intro3 extends AsteroidWorld
      */
     public Intro3()
     {
-        super(2, 650, 480);
+        super(3, 650, 480);
     }
     public void act() {
         if (Greenfoot.mouseClicked(button)) {

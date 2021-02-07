@@ -1,13 +1,12 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Intro1 here.
- *
- * @author (your name)
+ * Write a description of class TitleScreen here.
+ * 
+ * @author (your name) 
  * @version (a version number or a date)
  */
-
-public class Intro1 extends AsteroidWorld
+public class TitleScreen extends AsteroidWorld
 {
     Button button;
     GreenfootImage img;
@@ -15,9 +14,10 @@ public class Intro1 extends AsteroidWorld
      * Constructor for objects of class Intro1.
      *
      */
-    public Intro1()
+    public TitleScreen()
     {
-        super(1, 650, 480);
+        super(0, 600, 600);
+        populate();
     }
     public void act() {  
         if (Greenfoot.mouseClicked(button)) {
@@ -25,8 +25,8 @@ public class Intro1 extends AsteroidWorld
         }
     }
     public void populate(){
-       img = new GreenfootImage("Intro-0_resized.png"); 
-       populateStoryImage(img, 650, 480);
+       img = new GreenfootImage("title-screen.png"); 
+       populateStoryImage(img, 600, 600);
        button = new Button(Color.BLUE, Color.BLUE.darker(), Color.WHITE, "Next", 100, 50);
        addObject(button, getWidth() - 55, getHeight() - 30);  
     }

@@ -16,7 +16,7 @@ public class Manual3 extends AsteroidWorld
      */
     public Manual3()
     {
-       super(6, 600, 600);
+       super(7, 600, 600);
     }
     public void act() {
        if (Greenfoot.mouseClicked(button)) {

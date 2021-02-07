@@ -23,7 +23,7 @@ public class Space extends AsteroidWorld
     public Space()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(7, 600, 600);
+        super(8, 600, 600);
         //addObject(new MiningParticles(), 250, 350);
         //addObject(new CannonParticles(), 350, 250);
     }

@@ -47,6 +47,7 @@ public abstract class AsteroidWorld extends World
     }
     private void populateWorldList(){
         worldList = new ArrayList<AsteroidWorld>();
+        worldList.add(new Intro1());
         worldList.add(new Intro2());
         worldList.add(new Intro3());
         worldList.add(new Intro4());
