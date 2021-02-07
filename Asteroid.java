@@ -87,6 +87,7 @@ public class Asteroid extends Actor
             }
             else if(coll.tag == "Ship"){
                 Space s = (Space)getWorld();
+                s.addObject(new AsteroidBlowupParticles(0, (int)size), getX(), getY());
                 getWorld().removeObject(this);
                 s.playerDamaged();
                 return;
