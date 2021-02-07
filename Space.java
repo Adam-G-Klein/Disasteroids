@@ -17,17 +17,14 @@ public class Space extends AsteroidWorld
     private static Facecam fc;
     private Ship ship;
     private CannonballCounter cbc;
+    private EmotionController ec;
     private Cannon cannon;
-<<<<<<< HEAD
-    public int playerHealth;
-    private int startingCannonballs;
-=======
     public int playerHealth = 3;
     private int startingCannonballs = 10;
     private boolean debugMode = true;
     private int spawnRate = 10;
     public int score;
->>>>>>> d51c8a2... Add better collision detection
+    private float streakTimer = 0;
     public Space()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
@@ -37,7 +34,8 @@ public class Space extends AsteroidWorld
     }
     
     public void act(){
-        int num = Greenfoot.getRandomNumber(100);
+        handleStreakEmotion();
+        /*
         if(num == 5)
             setEmotion("panik");
         if(num == 10)
@@ -46,9 +44,10 @@ public class Space extends AsteroidWorld
             setEmotion("angry");
         if(num == 20)
             setEmotion("glasses");
+            */
             
         int randVal = Utils.random(0,1000);
-        if(randVal > (1000 - (score + 10))) //init is 990, goes down as score goes up
+        if(randVal > (1000 - ((score / 20) + 5))) //init is 990, goes down as score goes up
             spawnAsteroid();
         if(Greenfoot.mouseClicked(null)){
             if(cbc.getCannonballs() > 0){
@@ -60,6 +59,14 @@ public class Space extends AsteroidWorld
                 //spawnAsteroidCrackingParticles();
             }
         }
+    }
+    private void handleStreakEmotion(){
+        if(streakTimer >= 4) {
+            emotionEvent("Asteroid");
+            streakTimer = 0;
+        }
+        if(streakTimer >= 0) streakTimer -= 0.01f;
+
     }
     private void spawnCannonParticles(){
         ArrayList<Actor> cannons = new ArrayList<Actor>();
@@ -74,7 +81,7 @@ public class Space extends AsteroidWorld
         int yOffset = (int)(300 + 100 * cannonPos.get(1));
         addObject(new Cannonball(this, rotation, xOffset, yOffset), xOffset, yOffset);
         addObject(new CannonParticles(rotation), xOffset, yOffset);
-        setEmotion("goodYell");    
+        //setEmotion("goodYell");    
     }
     private void spawnMiningParticles(){
         Vector2 shipPos = ship.getPosition();
@@ -82,7 +89,7 @@ public class Space extends AsteroidWorld
         Vector2 displacement = Utils.dirFromAngle(shipRot);
         addObject(new MiningParticles((int)shipRot), (int)(300 + 100 * displacement.x),
                                          (int)(300 + 100 * displacement.y));
-        setEmotion("goodYell");    
+        //setEmotion("goodYell");    
     }
     //private void spawnAsteroidBlowupParticles(){
     //   addObject(new AsteroidBlowupParticles(0), 200, 200); 
@@ -127,8 +134,8 @@ public class Space extends AsteroidWorld
     }
     // For now you can set happy, sad, scared, panik, surprised, dizzy,
     // angry, goodYell, sadYell, heh, glasses
-    public static void setEmotion(String emotion){
-        fc.setPicture(emotion);
+    public void emotionEvent(String event){
+        ec.event(event);
     }
     public void populate(){
         System.out.println("populating space");
@@ -148,11 +155,14 @@ public class Space extends AsteroidWorld
         fc = new Facecam();
         addObject(fc, 525,67);
         addObject(new FacecamHelmet(), 525,57);
+        ec = new EmotionController(fc);
+        addObject(ec, 0,0);
         setPaintOrder(CircleCollider.class, AsteroidCrackingParticles.class, AsteroidBlowupParticles.class, 
                       Ship.class, Facecam.class, FacecamHelmet.class, FacecamFrame.class, Cannon.class, Asteroid.class);
     }
     public void playerDamaged(){
-        if(debugMode) return;
+        ec.addToDamage(1);
+        streakTimer = 0;
         if (playerHealth == 3){
             playerHealth -= 1;
             ship.setImage("Spaceship-Damaged-Once.png");
@@ -162,12 +172,14 @@ public class Space extends AsteroidWorld
             ship.setImage("Spaceship-Damaged-Twice.png");
         }
         else{
+            if(debugMode) return;
             nextLevel();
         }
     }
     
     public void addToScore(int val){
         score += val;
+        streakTimer += val;
     }
     public void updateCBC(int amount){
         cbc.updateCannonballs(amount);

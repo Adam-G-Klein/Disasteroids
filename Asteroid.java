@@ -19,13 +19,15 @@ public class Asteroid extends Actor
     private GreenfootImage img;
     public Vector2 nextPos;
     public Vector2 currPos;
-    private float size;
+    private float collRadius;
+    private int widthAndHeight;
     private boolean hasBeenOnScreen = false;
     private boolean beingMined = false;
     private Ship ship;
-    public Asteroid(int radius, Vector2 dir, float speed){
+    public Asteroid(int widthAndHeight, Vector2 dir, float speed){
         img = new GreenfootImage("Asteroid.png");
-        img.scale(radius,radius);
+        img.scale(widthAndHeight,widthAndHeight);
+        this.widthAndHeight = widthAndHeight;
         setImage(img);
         movPerAct = Vector2.mult(dir,speed);
         movPerActNormed = Vector2.mult(dir, speed);
@@ -39,7 +41,8 @@ public class Asteroid extends Actor
         } else {
             turnsPerMov = 1;
         }
-        size = radius / 2;
+        Vector2 temp = new Vector2(widthAndHeight,widthAndHeight);
+        collRadius =  widthAndHeight / 3;
     }
     public void act() 
     {
@@ -55,7 +58,7 @@ public class Asteroid extends Actor
     }   
     
     private void handleCollisions(){
-        List<CircleCollider> hits = CircleCollider.circleCast(getWorld(), currPos, size, 8); 
+        List<CircleCollider> hits = CircleCollider.circleCast(getWorld(), currPos, collRadius, 8); 
         for(CircleCollider coll : hits){
             if(coll.tag == "Beam" && beingMined == false){
                 handleBeamCollision();
@@ -102,24 +105,25 @@ public class Asteroid extends Actor
         ship = space.getShip();
         ship.updateAsteroidsBeingMined(1);
         space.updateCBC(1);
-        space.addObject(new AsteroidCrackingParticles(0, this, (int)size, ship), getX(), getY());
+        space.addObject(new AsteroidCrackingParticles(0, this, (int)widthAndHeight, ship), getX(), getY());
     }
     
     private void handleShipCollision(){
         Space s = (Space)getWorld();
-        s.addObject(new AsteroidBlowupParticles(0, (int)size), getX(), getY());
+        s.addObject(new AsteroidBlowupParticles(0, (int)widthAndHeight), getX(), getY());
         s.playerDamaged();
         selfDestruct(); 
     }
     
     private void handleCannonballCollision(){
         Space s = (Space)getWorld();
-        s.addObject(new AsteroidBlowupParticles(0, (int)size * 2), getX(), getY());
-        getWorld().removeObject(this);
+        s.addObject(new AsteroidBlowupParticles(0, (int)widthAndHeight), getX(), getY());
+        ((Space)getWorld()).addToScore(1);
+        selfDestruct();
     }
     
     private void selfDestruct(){
-        ((Space)getWorld()).addToScore(1);
+
         getWorld().removeObject(this);
     }
 }

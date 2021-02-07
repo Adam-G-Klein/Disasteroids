@@ -45,7 +45,7 @@ public class CircleCollider extends Actor
         List<CircleCollider> hits = new ArrayList<CircleCollider>();
         float angStep = 360 / resolution;
         Vector2 checkPos;
-        List<CircleCollider> hitsAtPos;
+        List<CircleCollider> hitsAtPos = new ArrayList<CircleCollider>();
         //System.out.println("Circ Cast from " + centerPos.toString() + " w radius " + radius);
         for(int angle = 0; angle < 360; angle += angStep){
             checkPos = Utils.dirFromAngle(angle);
@@ -53,7 +53,7 @@ public class CircleCollider extends Actor
             checkPos.add(centerPos);
             //System.out.println("\tChecking pos " + checkPos.toString());
             if(Utils.onscreen(w, checkPos)){
-                hitsAtPos = w.getObjectsAt(
+                if(w != null) hitsAtPos = w.getObjectsAt(
                     (int) (checkPos.x), 
                     (int) (checkPos.y), 
                     CircleCollider.class);            

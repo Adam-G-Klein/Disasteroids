@@ -1,5 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-import java.util.Hashtable;
+import java.util.*;
 
 /**
  * Write a description of class Facecam here.
@@ -9,10 +9,6 @@ import java.util.Hashtable;
  */
 public class Facecam extends Actor
 {
-    /**
-     * Act - do whatever the Facecam wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
     private GreenfootImage happy = new GreenfootImage("facecam-happy.png");
     private GreenfootImage scared = new GreenfootImage("facecam-scared.png");
     private GreenfootImage panik = new GreenfootImage("facecam-panik.png");
@@ -25,12 +21,12 @@ public class Facecam extends Actor
     private GreenfootImage heh = new GreenfootImage("facecam-heh.png");
     private GreenfootImage glasses = new GreenfootImage("facecam-glasses.png");
     private Hashtable<String, GreenfootImage> EmotionToImage = new Hashtable<String, GreenfootImage>();
-    public float emotionTimer = 0f;
     public Facecam() {
         populateHT();
         scaleImages();
-        setImage(happy);
+        setImage(panik);
     }
+    private String currEmotion = "panik";
     private void scaleImages(){
         for (GreenfootImage img : EmotionToImage.values())
         {
@@ -52,13 +48,13 @@ public class Facecam extends Actor
         EmotionToImage.put("glasses",glasses);
         
     }
-    public void act() 
-    {
-        
-    }
-    public void setPicture(String emotion){
-        GreenfootImage img = EmotionToImage.get(emotion);
-        setImage(img);
+
+    public void setEmotion(String emotion){
+        if(emotion != currEmotion){
+            GreenfootImage img = EmotionToImage.get(emotion);
+            setImage(img);
+            currEmotion = emotion;
+        }
     }
     
 }

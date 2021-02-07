@@ -26,7 +26,7 @@ public abstract class AsteroidWorld extends World
             currentLevel = 0;
         }
         if(debugMode){
-            currentLevel = 6;
+            currentLevel = 7;
         }
     }
     public void nextLevel() {
@@ -40,7 +40,7 @@ public abstract class AsteroidWorld extends World
        int spaceLevelIndex = currentLevel - 2;
        worldList.get(spaceLevelIndex).populate();
        Greenfoot.setWorld(worldList.get(spaceLevelIndex));
-       System.out.println(currentLevel);
+       //System.out.println(currentLevel);
     }
     public void removeAllObjects() {
        removeObjects(getObjects(null));
