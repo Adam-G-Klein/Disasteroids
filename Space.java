@@ -18,8 +18,8 @@ public class Space extends AsteroidWorld
     private Ship ship;
     private CannonballCounter cbc;
     private Cannon cannon;
-    public int playerHealth = 3;
-    private int startingCannonballs = 10;
+    public int playerHealth;
+    private int startingCannonballs;
     public Space()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
@@ -131,7 +131,10 @@ public class Space extends AsteroidWorld
         fc.setPicture(emotion);
     }
     public void populate(){
+        System.out.println("populating space");
         removeAllObjects();
+        playerHealth = 3;
+        startingCannonballs = 10;
         img = new GreenfootImage("background.jpg");
         img.scale(700,700);
         setBackground(img);

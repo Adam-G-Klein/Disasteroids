@@ -14,12 +14,11 @@ public abstract class AsteroidWorld extends World
      * 
      */
     static ArrayList<AsteroidWorld> worldList = new ArrayList<AsteroidWorld>();
-    Integer currentLevel;
+    private Integer currentLevel;
     public abstract void populate();
     private boolean debugMode = false;
     public AsteroidWorld(Integer level, Integer x, Integer y)
     {    
-
         super(x, y, 1);
         currentLevel = level;
         if (currentLevel == 0){
@@ -31,9 +30,17 @@ public abstract class AsteroidWorld extends World
         }
     }
     public void nextLevel() {
+       System.out.println(currentLevel);
        worldList.get(currentLevel).populate();
        Greenfoot.setWorld(worldList.get(currentLevel));
-       currentLevel++;
+       System.out.println(currentLevel);
+    }
+    public void previousLevel() {
+       // repopulates the space level from the endscreen
+       int spaceLevelIndex = currentLevel - 2;
+       worldList.get(spaceLevelIndex).populate();
+       Greenfoot.setWorld(worldList.get(spaceLevelIndex));
+       System.out.println(currentLevel);
     }
     public void removeAllObjects() {
        removeObjects(getObjects(null));
