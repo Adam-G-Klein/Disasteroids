@@ -18,8 +18,16 @@ public class Space extends AsteroidWorld
     private Ship ship;
     private CannonballCounter cbc;
     private Cannon cannon;
+<<<<<<< HEAD
     public int playerHealth;
     private int startingCannonballs;
+=======
+    public int playerHealth = 3;
+    private int startingCannonballs = 10;
+    private boolean debugMode = true;
+    private int spawnRate = 10;
+    public int score;
+>>>>>>> d51c8a2... Add better collision detection
     public Space()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
@@ -40,16 +48,8 @@ public class Space extends AsteroidWorld
             setEmotion("glasses");
             
         int randVal = Utils.random(0,1000);
-        if(Greenfoot.mouseClicked(null))
+        if(randVal > (1000 - (score + 10))) //init is 990, goes down as score goes up
             spawnAsteroid();
-            //addObject(new Asteroid(10, 10, new Vector2(-1, 1f), 1f), (int) 700, (int) 0);
-        /*} else if (randVal > 50) {
-            addObject(new Asteroid(10, 10, new Vector2(1, 1f), 1), (int) 0, (int) 0);
-        } else if (randVal > 25) {
-            addObject(new Asteroid(10, 10, new Vector2(1, -1f), 1), (int) 0, (int) 700);
-        } else {
-            addObject(new Asteroid(10, 10, new Vector2(-1, -1f), 1), (int) 700, (int) 700);
-        }*/
         if(Greenfoot.mouseClicked(null)){
             if(cbc.getCannonballs() > 0){
                 spawnCannonParticles();
@@ -72,7 +72,7 @@ public class Space extends AsteroidWorld
         int rotation = cannon.GetRotation();
         int xOffset = (int)(300 + 100 * cannonPos.get(0));
         int yOffset = (int)(300 + 100 * cannonPos.get(1));
-        addObject(new Cannonball(rotation), xOffset, yOffset);
+        addObject(new Cannonball(this, rotation, xOffset, yOffset), xOffset, yOffset);
         addObject(new CannonParticles(rotation), xOffset, yOffset);
         setEmotion("goodYell");    
     }
@@ -152,6 +152,7 @@ public class Space extends AsteroidWorld
                       Ship.class, Facecam.class, FacecamHelmet.class, FacecamFrame.class, Cannon.class, Asteroid.class);
     }
     public void playerDamaged(){
+        if(debugMode) return;
         if (playerHealth == 3){
             playerHealth -= 1;
             ship.setImage("Spaceship-Damaged-Once.png");
@@ -163,6 +164,10 @@ public class Space extends AsteroidWorld
         else{
             nextLevel();
         }
+    }
+    
+    public void addToScore(int val){
+        score += val;
     }
     public void updateCBC(int amount){
         cbc.updateCannonballs(amount);

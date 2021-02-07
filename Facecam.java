@@ -25,7 +25,8 @@ public class Facecam extends Actor
     private GreenfootImage heh = new GreenfootImage("facecam-heh.png");
     private GreenfootImage glasses = new GreenfootImage("facecam-glasses.png");
     private Hashtable<String, GreenfootImage> EmotionToImage = new Hashtable<String, GreenfootImage>();
-    public Facecam(){
+    public float emotionTimer = 0f;
+    public Facecam() {
         populateHT();
         scaleImages();
         setImage(happy);
@@ -53,10 +54,11 @@ public class Facecam extends Actor
     }
     public void act() 
     {
-        // Add your action code here.
+        
     }
     public void setPicture(String emotion){
         GreenfootImage img = EmotionToImage.get(emotion);
         setImage(img);
     }
+    
 }

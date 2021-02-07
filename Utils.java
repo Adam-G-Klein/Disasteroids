@@ -54,6 +54,7 @@ public class Utils
     public static boolean offscreenX(World w, float side, Vector2 pos){
         // only wanna check two sides with asteroids so they're not
         // destroyed immediately after spawning
+        if(w == null) return false;
         if(side > 0)
             return pos.x >= w.getWidth() - 3;
         else
@@ -63,11 +64,18 @@ public class Utils
     public static boolean offscreenY(World w, float side, Vector2 pos){
         // only wanna check two sides with asteroids so they're not
         // destroyed immediately after spawning
+        
+        if(w == null) return false;
         if(side > 0)
             return pos.y >= w.getHeight() - 3;
         else
             return pos.y <= 0;
     }
     
-
+    public static boolean onscreen(World w, Vector2 pos){
+        return !offscreenY(w, -1, pos)
+            && !offscreenY(w, 1, pos)
+            && !offscreenX(w, -1, pos)
+            && !offscreenX(w, 1, pos);
+    }
 }

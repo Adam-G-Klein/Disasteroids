@@ -39,7 +39,7 @@ public class Asteroid extends Actor
         } else {
             turnsPerMov = 1;
         }
-        size = radius;
+        size = radius / 2;
     }
     public void act() 
     {
@@ -47,66 +47,79 @@ public class Asteroid extends Actor
         nextPos = Vector2.moveAtAngle(new Vector2(getX(), getY()), movAngle, 3);
         setLocation((int)nextPos.x, (int)nextPos.y);*/
         currPos = new Vector2(getX(), getY());
-        Vector2 nextPos = currPos;
-        if(!hasBeenOnScreen 
-            && (!Utils.offscreenX(getWorld(), -movPerAct.x, currPos)
-                && !Utils.offscreenY(getWorld(), -movPerAct.y, currPos))){
-            hasBeenOnScreen = true;
-            //System.out.println("setOnScreen for " + movPerAct.toString());
-        }
-        if(turnCnt + 1 == turnsPerMov) {
-            currPos = new Vector2(getX(), getY());
-            nextPos = new Vector2(currPos.x + movPerAct.x, currPos.y + movPerAct.y);
-            turnCnt = 0;
-        } else {
-            turnCnt += 1;
-        }
-        if(hasBeenOnScreen 
-            && (Utils.offscreenX(getWorld(), movPerAct.x, currPos) 
-                || Utils.offscreenY(getWorld(), movPerAct.y, currPos))){
-            getWorld().removeObject(this);
-            return;
-        }
-        
-        Vector2 leadingEdge = new Vector2(nextPos.x + movPerActNormed.x * size * 0.3f, nextPos.y + movPerActNormed.y * size * 0.3f);
-        List<CircleCollider> collidersAtEdge = getWorld().getObjectsAt(
-            (int) (leadingEdge.x), 
-            (int) (leadingEdge.y), 
-            CircleCollider.class);
-        for(CircleCollider coll : collidersAtEdge){
-            if(coll.tag == "Beam" && beingMined == false){
-                beingMined = true;
-                movPerAct = new Vector2(0,0);
-                Space space = (Space)getWorld();
-                ship = space.getShip();
-                ship.updateAsteroidsBeingMined(1);
-                space.updateCBC(1);
-                space.addObject(new AsteroidCrackingParticles(0, this, (int)size, ship), getX(), getY());
-                //getWorld().removeObject(this);
-                return;
-            }
-            else if(coll.tag == "Ship"){
-                Space s = (Space)getWorld();
-                s.addObject(new AsteroidBlowupParticles(0, (int)size), getX(), getY());
-                getWorld().removeObject(this);
-                s.playerDamaged();
-                return;
-            }
-        }
-        
-        /*
-        if(leadingEdge.x < 600 && leadingEdge.x > 0 && leadingEdge.y > 0 && leadingEdge.y < 600){
-            //System.out.println("color at " + leadingEdge.toString() + " is " + );
-            collisionColor = getWorld().getColorAt((int)leadingEdge.x, (int)leadingEdge.y);
-            if(Math.abs(collisionColor.getRed() - 255) <= 15
-                && Math.abs(collisionColor.getBlue() - 197) <= 15
-                && Math.abs(collisionColor.getGreen() - 23) <= 15){
-                    getWorld().removeObject(this);
-                    return;
-            }
-        }*/
-        
+        deleteIfOffscreen(getWorld(), currPos);
+        Vector2 nextPos = getNextPos(currPos);
+        handleCollisions();
         setLocation((int) nextPos.x, (int) nextPos.y);
         
     }   
+    
+    private void handleCollisions(){
+        List<CircleCollider> hits = CircleCollider.circleCast(getWorld(), currPos, size, 8); 
+        for(CircleCollider coll : hits){
+            if(coll.tag == "Beam" && beingMined == false){
+                handleBeamCollision();
+                return;
+            }
+            else if(coll.tag == "Ship"){
+                handleShipCollision();
+                return;
+            } else if(coll.tag == "Cannonball"){
+                handleCannonballCollision();
+                return;
+            }
+        }   
+    }
+    
+    private Vector2 getNextPos(Vector2 currPos){
+        if(turnCnt + 1 == turnsPerMov) {
+            turnCnt = 0;
+            return new Vector2(currPos.x + movPerAct.x, currPos.y + movPerAct.y);
+        } else {
+            turnCnt += 1;
+            return currPos;
+        }
+    }
+    
+    private void deleteIfOffscreen(World w, Vector2 currPos){
+        if(!hasBeenOnScreen 
+            && (!Utils.offscreenX(w, -movPerAct.x, currPos)
+                && !Utils.offscreenY(w, -movPerAct.y, currPos))){
+            hasBeenOnScreen = true;
+        }
+        if(hasBeenOnScreen 
+            && (Utils.offscreenX(w, movPerAct.x, currPos) 
+                || Utils.offscreenY(w, movPerAct.y, currPos))){
+            w.removeObject(this);
+            return;
+        }
+    }
+    
+    private void handleBeamCollision(){
+        beingMined = true;
+        movPerAct = new Vector2(0,0);
+        Space space = (Space)getWorld();
+        ship = space.getShip();
+        ship.updateAsteroidsBeingMined(1);
+        space.updateCBC(1);
+        space.addObject(new AsteroidCrackingParticles(0, this, (int)size, ship), getX(), getY());
+    }
+    
+    private void handleShipCollision(){
+        Space s = (Space)getWorld();
+        s.addObject(new AsteroidBlowupParticles(0, (int)size), getX(), getY());
+        s.playerDamaged();
+        selfDestruct(); 
+    }
+    
+    private void handleCannonballCollision(){
+        Space s = (Space)getWorld();
+        s.addObject(new AsteroidBlowupParticles(0, (int)size * 2), getX(), getY());
+        getWorld().removeObject(this);
+    }
+    
+    private void selfDestruct(){
+        ((Space)getWorld()).addToScore(1);
+        getWorld().removeObject(this);
+    }
 }

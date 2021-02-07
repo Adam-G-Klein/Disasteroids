@@ -60,7 +60,6 @@ public class Ship extends Actor
         int toEachSide = (int) -Math.floor(numColliders/2);
         int colliderNum = -toEachSide;
         Vector2 collPos;
-        //System.out.println("beamAngle: " + getBeamAngle() + " angs: ");
         for(int i = 0; i < numColliders; i += 1){
             collPos = Utils.dirFromAngle(getBeamAngle() - 80 + (colliderNum * betweenColliders));
             //System.out.print(" " + (getBeamAngle() + (colliderNum * betweenColliders)) + " ");

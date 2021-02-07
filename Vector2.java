@@ -32,9 +32,9 @@ class Vector2 {
         this.x = this.x - other.x;
         this.y = this.y - other.y;
     }
-    public void multiply(Vector2 other){
-        this.x = this.x * other.x;
-        this.y = this.y * other.y;
+    public void multiply(float scalar){
+        this.x = this.x * scalar;
+        this.y = this.y * scalar;
     }
     public void add(float x, float y){
         this.x = this.x + x;
