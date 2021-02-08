@@ -112,6 +112,7 @@ public class Asteroid extends Actor
         Space s = (Space)getWorld();
         s.addObject(new AsteroidBlowupParticles(0, (int)widthAndHeight), getX(), getY());
         s.playerDamaged();
+        Greenfoot.playSound("ShipHitByAsteroid.wav");
         selfDestruct(); 
     }
     
@@ -119,11 +120,11 @@ public class Asteroid extends Actor
         Space s = (Space)getWorld();
         s.addObject(new AsteroidBlowupParticles(0, (int)widthAndHeight), getX(), getY());
         ((Space)getWorld()).addToScore(1);
+        Greenfoot.playSound("AsteroidDestroyedByCannonball.wav");
         selfDestruct();
     }
     
-    private void selfDestruct(){
-
+    public void selfDestruct(){
         getWorld().removeObject(this);
     }
 }
