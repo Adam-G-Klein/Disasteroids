@@ -16,7 +16,7 @@ public abstract class AsteroidWorld extends World
     static ArrayList<AsteroidWorld> worldList = new ArrayList<AsteroidWorld>();
     private Integer currentLevel;
     public abstract void populate();
-    private boolean debugMode = false;
+    private boolean debugMode = true;
     private GreenfootSound background;
     public AsteroidWorld(Integer level, Integer x, Integer y)
     {    
@@ -35,10 +35,8 @@ public abstract class AsteroidWorld extends World
         }
     }
     public void nextLevel() {
-       System.out.println(currentLevel);
        worldList.get(currentLevel).populate();
        Greenfoot.setWorld(worldList.get(currentLevel));
-       System.out.println(currentLevel);
     }
     public void previousLevel() {
        // repopulates the space level from the endscreen
