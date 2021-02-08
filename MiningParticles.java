@@ -14,7 +14,7 @@ public class MiningParticles extends AnimatedActor
      */
     public MiningParticles(int rotation)
     {
-        super("Mining_Particles",".png",9, rotation + 90, 5, 100, 72);
+        super("Mining_Particles",".png",9, rotation + 90, 20, 100, 72);
         System.out.println(rotation);
     }
     public void act() 
