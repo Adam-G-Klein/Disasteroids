@@ -22,6 +22,7 @@ public class Ship extends Actor
     private int beamColliderRadius = 30;
     private boolean miningStatus = false;
     private int asteroidsBeingMined = 0;
+    private float beamStartTimer = 0;
     public Ship(World w){
         img = new GreenfootImage("Spaceship-Undamaged.png");
         //img.scale(160,212);
@@ -37,6 +38,7 @@ public class Ship extends Actor
     
     public void act() 
     {
+        beamStartTimer -= 0.01f;
         placeColliders();
         if(!miningStatus){
             if(Greenfoot.isKeyDown("a") || Greenfoot.isKeyDown("left")){
@@ -77,11 +79,13 @@ public class Ship extends Actor
     }
     public void updateAsteroidsBeingMined(int amount){
         asteroidsBeingMined = asteroidsBeingMined + amount;
+        if (amount > 0){ Greenfoot.playSound("BeamMiningIdle.wav"); }
         if(asteroidsBeingMined == 0){
             setMining(false);
         }
         else{
             setMining(true);
+
         }
     }
 }

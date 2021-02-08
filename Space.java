@@ -49,7 +49,7 @@ public class Space extends AsteroidWorld
             */
             
         int randVal = Utils.random(0,1000);
-        if(randVal > (1000 - ((score / 20) + 5))) //init is 990, goes down as score goes up
+        if(randVal > (1000 - ((score / 20) + 10))) //init is 990, goes down as score goes up
             spawnAsteroid();
         if(Greenfoot.mouseClicked(null)){
             if(cbc.getCannonballs() > 0){
@@ -83,6 +83,7 @@ public class Space extends AsteroidWorld
         int yOffset = (int)(300 + 100 * cannonPos.get(1));
         addObject(new Cannonball(this, rotation, xOffset, yOffset), xOffset, yOffset);
         addObject(new CannonParticles(rotation), xOffset, yOffset);
+        Greenfoot.playSound("CannonBallFired.wav");
         //setEmotion("goodYell");    
     }
     private void spawnMiningParticles(){
@@ -141,6 +142,7 @@ public class Space extends AsteroidWorld
     }
     public void populate(){
         System.out.println("populating space");
+
         removeAllObjects();
         playerHealth = 3;
         startingCannonballs = 10;
@@ -160,7 +162,6 @@ public class Space extends AsteroidWorld
         addObject(fc, 525,67);
         addObject(new FacecamHelmet(), 525,57);
         ec = new EmotionController(fc);
-        addObject(ec, 0,0);
         setPaintOrder(CircleCollider.class, MiningParticles.class, Ship.class, AsteroidCrackingParticles.class, AsteroidBlowupParticles.class, 
                       Facecam.class, FacecamHelmet.class, FacecamFrame.class, Cannon.class, Asteroid.class);
     }
