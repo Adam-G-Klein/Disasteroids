@@ -16,7 +16,7 @@ public abstract class AsteroidWorld extends World
     static ArrayList<AsteroidWorld> worldList = new ArrayList<AsteroidWorld>();
     private Integer currentLevel;
     public abstract void populate();
-    private boolean debugMode = false;
+    private boolean debugMode = true;
     public AsteroidWorld(Integer level, Integer x, Integer y)
     {    
         super(x, y, 1);
@@ -26,7 +26,7 @@ public abstract class AsteroidWorld extends World
             currentLevel = 0;
         }
         if(debugMode){
-            currentLevel = 6;
+            currentLevel = 7;
         }
     }
     public void nextLevel() {

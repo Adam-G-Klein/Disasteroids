@@ -1,3 +1,4 @@
+
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
 /**
@@ -20,6 +21,7 @@ public class Space extends AsteroidWorld
     private Cannon cannon;
     public int playerHealth;
     private int startingCannonballs;
+    private ScoreBoard sb;
     public Space()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
@@ -53,7 +55,7 @@ public class Space extends AsteroidWorld
         if(Greenfoot.mouseClicked(null)){
             if(cbc.getCannonballs() > 0){
                 spawnCannonParticles();
-                spawnMiningParticles();
+                //spawnMiningParticles();
                 // Proof of concept that shooting a cannonball removes one ammo;
                 updateCBC(-1);
                 //spawnAsteroidBlowupParticles();
@@ -143,13 +145,15 @@ public class Space extends AsteroidWorld
         addObject(cannon, 300, 300);
         addObject(ship, 300, 300);
         addObject(new FacecamFrame(), 525,55);
+        sb = new ScoreBoard();
+        addObject(sb, 525,155);
         cbc = new CannonballCounter(startingCannonballs);
         addObject(cbc, 525,125);
         fc = new Facecam();
         addObject(fc, 525,67);
         addObject(new FacecamHelmet(), 525,57);
-        setPaintOrder(CircleCollider.class, AsteroidCrackingParticles.class, AsteroidBlowupParticles.class, 
-                      Ship.class, Facecam.class, FacecamHelmet.class, FacecamFrame.class, Cannon.class, Asteroid.class);
+        setPaintOrder(CircleCollider.class, MiningParticles.class, Ship.class, AsteroidCrackingParticles.class, AsteroidBlowupParticles.class, 
+                      Facecam.class, FacecamHelmet.class, FacecamFrame.class, Cannon.class, Asteroid.class);
     }
     public void playerDamaged(){
         if (playerHealth == 3){
@@ -166,6 +170,9 @@ public class Space extends AsteroidWorld
     }
     public void updateCBC(int amount){
         cbc.updateCannonballs(amount);
+    }
+    public void updateScoreboard(int amount){
+        sb.updateScore(amount);
     }
     public Ship getShip(){
         return ship;

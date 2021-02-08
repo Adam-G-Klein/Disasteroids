@@ -81,6 +81,8 @@ public class Asteroid extends Actor
                 ship = space.getShip();
                 ship.updateAsteroidsBeingMined(1);
                 space.updateCBC(1);
+                space.updateScoreboard(10);
+                space.addObject(new MiningParticles(ship.getRotation()), coll.getX(), coll.getY());
                 space.addObject(new AsteroidCrackingParticles(0, this, (int)size, ship), getX(), getY());
                 //getWorld().removeObject(this);
                 return;
