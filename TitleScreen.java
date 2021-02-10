@@ -27,7 +27,7 @@ public class TitleScreen extends AsteroidWorld
     public void populate(){
        img = new GreenfootImage("title-screen.png"); 
        populateStoryImage(img, 600, 600);
-       button = new Button(Color.BLUE, Color.BLUE.darker(), Color.WHITE, "Next", 100, 50);
+       button = new Button(Color.BLUE, Color.BLUE.darker(), Color.WHITE, "Play", 100, 50);
        addObject(button, getWidth() - 55, getHeight() - 30);  
     }
 }

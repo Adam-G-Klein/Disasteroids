@@ -1,4 +1,3 @@
-
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
 /**
@@ -28,10 +27,12 @@ public class Space extends AsteroidWorld
     private float streakTimer = 0;
     private ScoreBoard sb;
     private AsteroidSpawner as;
+    public boolean playerDead = false;
+    private boolean deathAnimationDone = false;
     public Space()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(8, 600, 600);
+        super(9, 600, 600);
         //addObject(new MiningParticles(), 250, 350);
         //addObject(new CannonParticles(), 350, 250);
     }
@@ -40,11 +41,18 @@ public class Space extends AsteroidWorld
         handleStreakEmotion();
         as.updateValues(score);
         if(Greenfoot.mouseClicked(null)){
-            if(cbc.getCannonballs() > 0){
+            if((cbc.getCannonballs() > 0) && !playerDead){
                 spawnCannonParticles();
                 updateCBC(-1);
             }
         }
+        
+        if(playerDead && deathAnimationDone){
+            nextLevel();
+        }
+    }
+    public void setDeathAnimationDone(){
+        deathAnimationDone = true;
     }
     private void handleStreakEmotion(){
         if(streakTimer >= 4) {
@@ -91,10 +99,11 @@ public class Space extends AsteroidWorld
         ec.event(event);
     }
     public void populate(){
-        System.out.println("populating space");
-
         removeAllObjects();
         playerHealth = 3;
+        startingCannonballs = 3;
+        playerDead = false;
+        deathAnimationDone = false;
         img = new GreenfootImage("background.jpg");
         img.scale(700,700);
         setBackground(img);
@@ -113,7 +122,8 @@ public class Space extends AsteroidWorld
         addObject(fc, 525,67);
         addObject(new FacecamHelmet(), 525,57);
         ec = new EmotionController(fc);
-        setPaintOrder(CircleCollider.class, MiningParticles.class, Ship.class, AsteroidCrackingParticles.class, AsteroidBlowupParticles.class, 
+        addObject(ec, 0,0);
+        setPaintOrder(CircleCollider.class, ShipBlowupParticles.class, MiningParticles.class, Ship.class, AsteroidCrackingParticles.class, AsteroidBlowupParticles.class, 
                       Facecam.class, FacecamHelmet.class, FacecamFrame.class, Cannon.class, Asteroid.class);
     }
     public void playerDamaged(){
@@ -127,9 +137,14 @@ public class Space extends AsteroidWorld
             playerHealth -= 1;
             ship.setImage("Spaceship-Damaged-Twice.png");
         }
-        else{
-            if(debugMode) return;
-            nextLevel();
+        else if(playerHealth == 1){
+            //if(debugMode) return;
+            playerHealth -= 1;
+            playerDead = true;
+            cannon.setPlayerDead();
+            ship.setPlayerDead();
+            addObject(new ShipBlowupParticles(), ship.getX(), ship.getY());
+            //nextLevel();
         }
     }
     
@@ -143,6 +158,10 @@ public class Space extends AsteroidWorld
     }
     public void updateScoreboard(int amount){
         sb.updateScore(amount);
+        //testing good ending
+        if(sb.getScore() >= 40){
+            playGoodEnding();
+        }
     }
     public Ship getShip(){
         return ship;

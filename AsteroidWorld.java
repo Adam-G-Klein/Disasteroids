@@ -1,3 +1,4 @@
+
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
 /**
@@ -16,8 +17,8 @@ public abstract class AsteroidWorld extends World
     static ArrayList<AsteroidWorld> worldList = new ArrayList<AsteroidWorld>();
     private Integer currentLevel;
     public abstract void populate();
-    private boolean debugMode = true;
     private GreenfootSound background;
+    private boolean debugMode = false;
     public AsteroidWorld(Integer level, Integer x, Integer y)
     {    
         super(x, y, 1);
@@ -39,10 +40,20 @@ public abstract class AsteroidWorld extends World
     }
     public void previousLevel() {
        // repopulates the space level from the endscreen
-       int spaceLevelIndex = currentLevel - 2;
+       int spaceLevelIndex = currentLevel - 3;
        worldList.get(spaceLevelIndex).populate();
        Greenfoot.setWorld(worldList.get(spaceLevelIndex));
        //System.out.println(currentLevel);
+    }
+    public void playGoodEnding(){
+       int spaceLevelIndex = currentLevel + 2;
+       worldList.get(spaceLevelIndex).populate();
+       Greenfoot.setWorld(worldList.get(spaceLevelIndex));
+    }
+    public void restart(){
+       int spaceLevelIndex = 0;
+       worldList.get(spaceLevelIndex).populate();
+       Greenfoot.setWorld(worldList.get(spaceLevelIndex));
     }
     public void removeAllObjects() {
        removeObjects(getObjects(null));
@@ -53,11 +64,15 @@ public abstract class AsteroidWorld extends World
         worldList.add(new Intro2());
         worldList.add(new Intro3());
         worldList.add(new Intro4());
+        worldList.add(new Dialogue1());
         worldList.add(new Manual1());
         worldList.add(new Manual2());
         worldList.add(new Manual3());
         worldList.add(new Space());
+        worldList.add(new Dialogue2());
         worldList.add(new EndScreen());
+        worldList.add(new Dialogue3());
+        worldList.add(new Credits());
     }
     public void populateStoryImage(GreenfootImage img, Integer imgX, Integer imgY){
        removeAllObjects();

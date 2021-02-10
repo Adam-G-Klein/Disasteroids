@@ -20,6 +20,18 @@ public class Facecam extends Actor
     private GreenfootImage sadYell = new GreenfootImage("facecam-sadYell.png");
     private GreenfootImage heh = new GreenfootImage("facecam-heh.png");
     private GreenfootImage glasses = new GreenfootImage("facecam-glasses.png");
+    
+    private GreenfootImage bossHappy = new GreenfootImage("facecam-boss-happy.png");
+    private GreenfootImage bossScared = new GreenfootImage("facecam-boss-scared.png");
+    private GreenfootImage bossPanik = new GreenfootImage("facecam-boss-panik.png");
+    private GreenfootImage bossSurprised = new GreenfootImage("facecam-boss-surprised.png");
+    private GreenfootImage bossDizzy = new GreenfootImage("facecam-boss-dizzy.png");
+    private GreenfootImage bossSad = new GreenfootImage("facecam-boss-sad.png");
+    private GreenfootImage bossAngry = new GreenfootImage("facecam-boss-angry.png");
+    private GreenfootImage bossGoodYell = new GreenfootImage("facecam-boss-goodYell.png");
+    private GreenfootImage bossSadYell = new GreenfootImage("facecam-boss-sadYell.png");
+    private GreenfootImage bossHeh = new GreenfootImage("facecam-boss-heh.png");
+    private GreenfootImage bossGlasses = new GreenfootImage("facecam-boss-glasses.png");
     private Hashtable<String, GreenfootImage> EmotionToImage = new Hashtable<String, GreenfootImage>();
     public Facecam() {
         populateHT();
@@ -46,6 +58,19 @@ public class Facecam extends Actor
         EmotionToImage.put("heh",heh);
         EmotionToImage.put("dizzy",dizzy);
         EmotionToImage.put("glasses",glasses);
+        
+        EmotionToImage.put("boss-happy",bossHappy);
+        EmotionToImage.put("boss-scared",bossScared);
+        EmotionToImage.put("boss-panik",bossPanik);
+        EmotionToImage.put("boss-surprised",bossSurprised);
+        EmotionToImage.put("boss-sad",bossSad);
+        EmotionToImage.put("boss-angry",bossAngry);
+        EmotionToImage.put("boss-goodYell",bossGoodYell);
+        EmotionToImage.put("boss-sadYell",bossSadYell);
+        EmotionToImage.put("boss-heh",bossHeh);
+        EmotionToImage.put("boss-dizzy",bossDizzy);
+        EmotionToImage.put("boss-glasses",bossGlasses);
+        
         
     }
 

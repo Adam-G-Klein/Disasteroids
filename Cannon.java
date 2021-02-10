@@ -15,7 +15,9 @@ public class Cannon extends Actor
      */
     private GreenfootImage img;
     private Integer rotation;
+    private boolean playerDead;
     public Cannon(){
+        playerDead = false;
         img = new GreenfootImage("Undamaged-Spaceship-Down-sized-2.png");
         setImage(img);
         
@@ -24,7 +26,7 @@ public class Cannon extends Actor
     public void act() 
     {
         MouseInfo mouse = Greenfoot.getMouseInfo();
-        if(mouse != null){
+        if(mouse != null && !playerDead){
             Vector2 dir = new Vector2(mouse.getX(), mouse.getY());            
             dir.add(-300,-300);
             //dead zone to stop spazzing when mouse over center of screen
@@ -45,5 +47,8 @@ public class Cannon extends Actor
         res.add(Math.cos(angleRad));
         res.add(Math.sin(angleRad));
         return res;
+    }
+    public void setPlayerDead(){
+        playerDead = true;
     }
 }

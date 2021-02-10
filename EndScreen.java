@@ -16,7 +16,7 @@ public class EndScreen extends AsteroidWorld
      */
     public EndScreen()
     {
-       super(9, 600, 600);
+       super(11, 600, 600);
     }
     public void act() {
        if (Greenfoot.mouseClicked(button)) {
