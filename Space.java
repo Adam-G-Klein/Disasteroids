@@ -21,8 +21,8 @@ public class Space extends AsteroidWorld
     private EmotionController ec;
     private Cannon cannon;
     public int playerHealth = 3;
-    private int startingCannonballs = 10;
-    private boolean debugMode = true;
+    private int startingCannonballs = 3;
+    private boolean debugMode = false;
     private int spawnRate = 10;
     public int score;
     private float streakTimer = 0;
@@ -49,7 +49,7 @@ public class Space extends AsteroidWorld
             */
             
         int randVal = Utils.random(0,1000);
-        if(randVal > (1000 - ((score / 20) + 10))) //init is 990, goes down as score goes up
+        if(randVal > (1000 - ((score / 30) + 10))) //init is 990, goes down as score goes up
             spawnAsteroid();
         if(Greenfoot.mouseClicked(null)){
             if(cbc.getCannonballs() > 0){
@@ -145,7 +145,6 @@ public class Space extends AsteroidWorld
 
         removeAllObjects();
         playerHealth = 3;
-        startingCannonballs = 10;
         img = new GreenfootImage("background.jpg");
         img.scale(700,700);
         setBackground(img);
@@ -158,6 +157,7 @@ public class Space extends AsteroidWorld
         addObject(sb, 525,155);
         cbc = new CannonballCounter(startingCannonballs);
         addObject(cbc, 525,125);
+
         fc = new Facecam();
         addObject(fc, 525,67);
         addObject(new FacecamHelmet(), 525,57);

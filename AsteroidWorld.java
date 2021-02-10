@@ -16,7 +16,7 @@ public abstract class AsteroidWorld extends World
     static ArrayList<AsteroidWorld> worldList = new ArrayList<AsteroidWorld>();
     private Integer currentLevel;
     public abstract void populate();
-    private boolean debugMode = true;
+    private boolean debugMode = false;
     private GreenfootSound background;
     public AsteroidWorld(Integer level, Integer x, Integer y)
     {    
