@@ -101,8 +101,8 @@ public class Dialogue3 extends AsteroidWorld
     }
     public void populateExpressionList(){
         expressionList = new ArrayList<String>();
-        expressionList.add("heh");
-        expressionList.add("angry");
+        expressionList.add("boss-heh");
+        expressionList.add("boss-angry");
         expressionList.add("happy");
     }
     public void nextDialogue(){

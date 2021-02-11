@@ -99,11 +99,11 @@ public class Dialogue1 extends AsteroidWorld
     public void populateExpressionList(){
         expressionList = new ArrayList<String>();
         expressionList.add("scared");
-        expressionList.add("heh");
-        expressionList.add("angry");
+        expressionList.add("boss-heh");
+        expressionList.add("boss-angry");
         expressionList.add("sad");
-        expressionList.add("sadYell");
-        expressionList.add("angry");
+        expressionList.add("boss-sadYell");
+        expressionList.add("boss-angry");
     }
     public void nextDialogue(){
        this.removeObject(currentDialogue);

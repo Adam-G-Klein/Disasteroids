@@ -99,7 +99,7 @@ public class Dialogue2 extends AsteroidWorld
     }
     public void populateExpressionList(){
         expressionList = new ArrayList<String>();
-        expressionList.add("heh");
+        expressionList.add("boss-heh");
         expressionList.add("sad");
     }
     public void nextDialogue(){
