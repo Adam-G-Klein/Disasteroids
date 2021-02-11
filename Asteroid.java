@@ -121,12 +121,12 @@ public class Asteroid extends Actor
     private void handleCannonballCollision(){
         Space s = (Space)getWorld();
         s.addObject(new AsteroidBlowupParticles(0, (int)widthAndHeight), getX(), getY());
-        ((Space)getWorld()).addToScore(1);
+        s.addToScore(1);
         Greenfoot.playSound("AsteroidDestroyedByCannonball.wav");
         selfDestruct();
     }
     
     public void selfDestruct(){
-        getWorld().removeObject(this);
+        ((Space) getWorld()).removeAsteroid(this);
     }
 }

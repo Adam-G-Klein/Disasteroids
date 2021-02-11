@@ -27,6 +27,7 @@ public class Space extends AsteroidWorld
     public int score;
     private float streakTimer = 0;
     private ScoreBoard sb;
+    private AsteroidSpawner as;
     public Space()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
@@ -37,28 +38,11 @@ public class Space extends AsteroidWorld
     
     public void act(){
         handleStreakEmotion();
-        /*
-        if(num == 5)
-            setEmotion("panik");
-        if(num == 10)
-            setEmotion("sadYell");
-        if(num == 15)
-            setEmotion("angry");
-        if(num == 20)
-            setEmotion("glasses");
-            */
-            
-        int randVal = Utils.random(0,1000);
-        if(randVal > (1000 - ((score / 30) + 10))) //init is 990, goes down as score goes up
-            spawnAsteroid();
+        as.updateValues(score);
         if(Greenfoot.mouseClicked(null)){
             if(cbc.getCannonballs() > 0){
                 spawnCannonParticles();
-                //spawnMiningParticles();
-                // Proof of concept that shooting a cannonball removes one ammo;
                 updateCBC(-1);
-                //spawnAsteroidBlowupParticles();
-                //spawnAsteroidCrackingParticles();
             }
         }
     }
@@ -92,7 +76,6 @@ public class Space extends AsteroidWorld
         Vector2 displacement = Utils.dirFromAngle(shipRot);
         addObject(new MiningParticles((int)shipRot), (int)(300 + 100 * displacement.x),
                                          (int)(300 + 100 * displacement.y));
-        //setEmotion("goodYell");    
     }
     //private void spawnAsteroidBlowupParticles(){
     //   addObject(new AsteroidBlowupParticles(0), 200, 200); 
@@ -101,40 +84,7 @@ public class Space extends AsteroidWorld
     //   addObject(new AsteroidCrackingParticles(0), 400, 400); 
     //}
     
-    private void spawnAsteroid(){
-        float angle = getSpawnAngle();
-        Vector2 unit = getSpawnUnit(angle);
-        Vector2 spawnPos = getSpawnPos(unit);
-        Vector2 movDir = getMovDir(spawnPos);
-        Vector2 sizeAndSpeed = getSizeAndSpeed();
-        //System.out.println("unit: " + unit.toString() + " spawnPos: " + spawnPos.toString() + " movDir: " + movDir.toString());
-        addObject(new Asteroid((int)sizeAndSpeed.x, movDir, sizeAndSpeed.y), (int) spawnPos.x, (int) spawnPos.y);
-    }
     
-    private Vector2 getSizeAndSpeed(){
-        int seed = Utils.random(1,6);
-        float size = seed * 20;
-        float speed = 1f / (seed * 1000);
-        Vector2 ret = new Vector2(size, speed);
-        return ret;
-    }
-    
-    private Vector2 getSpawnPos(Vector2 unit){
-        return new Vector2((unit.x * 500) + 350, (unit.y * 500) + 350);   
-    }
-    
-    private Vector2 getMovDir(Vector2 spawnPos){
-        return Vector2.sub(new Vector2(350,350), spawnPos);
-    }
-    
-    private float getSpawnAngle(){
-        int randAng = Utils.random(0,365);
-        return randAng;
-    }
-    
-    private Vector2 getSpawnUnit(float angle){
-        return Utils.dirFromAngle(angle);
-    }
     // For now you can set happy, sad, scared, panik, surprised, dizzy,
     // angry, goodYell, sadYell, heh, glasses
     public void emotionEvent(String event){
@@ -157,7 +107,8 @@ public class Space extends AsteroidWorld
         addObject(sb, 525,155);
         cbc = new CannonballCounter(startingCannonballs);
         addObject(cbc, 525,125);
-
+        as = new AsteroidSpawner(this);
+        addObject(as, -15, -15);
         fc = new Facecam();
         addObject(fc, 525,67);
         addObject(new FacecamHelmet(), 525,57);
@@ -185,6 +136,7 @@ public class Space extends AsteroidWorld
     public void addToScore(int val){
         score += val;
         streakTimer += val;
+        updateScoreboard(10);
     }
     public void updateCBC(int amount){
         cbc.updateCannonballs(amount);
@@ -194,5 +146,9 @@ public class Space extends AsteroidWorld
     }
     public Ship getShip(){
         return ship;
+    }
+    public void removeAsteroid(Asteroid ast){
+        removeObject(ast);
+        as.removeAsteroid(ast);
     }
 }
