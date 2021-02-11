@@ -189,6 +189,10 @@ public class Space extends AsteroidWorld
     }
     public void updateScoreboard(int amount){
         sb.updateScore(amount);
+        //testing good ending
+        if(sb.getScore() >= 40){
+            playGoodEnding();
+        }
     }
     public Ship getShip(){
         return ship;

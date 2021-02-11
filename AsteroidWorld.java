@@ -41,6 +41,11 @@ public abstract class AsteroidWorld extends World
        Greenfoot.setWorld(worldList.get(spaceLevelIndex));
        //System.out.println(currentLevel);
     }
+    public void playGoodEnding(){
+       int spaceLevelIndex = currentLevel + 2;
+       worldList.get(spaceLevelIndex).populate();
+       Greenfoot.setWorld(worldList.get(spaceLevelIndex));
+    }
     public void removeAllObjects() {
        removeObjects(getObjects(null));
     }
@@ -57,7 +62,8 @@ public abstract class AsteroidWorld extends World
         worldList.add(new Space());
         worldList.add(new Dialogue2());
         worldList.add(new EndScreen());
-        worldList.add(new Dialogue2());
+        worldList.add(new Dialogue3());
+        worldList.add(new Credits());
     }
     public void populateStoryImage(GreenfootImage img, Integer imgX, Integer imgY){
        removeAllObjects();
