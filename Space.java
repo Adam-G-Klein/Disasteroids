@@ -140,7 +140,6 @@ public class Space extends AsteroidWorld
         ec.event(event);
     }
     public void populate(){
-        System.out.println("populating space");
         removeAllObjects();
         playerHealth = 3;
         startingCannonballs = 10;
@@ -176,7 +175,7 @@ public class Space extends AsteroidWorld
             ship.setImage("Spaceship-Damaged-Twice.png");
         }
         else{
-            if(debugMode) return;
+            //if(debugMode) return;
             nextLevel();
         }
     }

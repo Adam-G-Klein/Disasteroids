@@ -61,7 +61,7 @@ public class Asteroid extends Actor
         List<CircleCollider> hits = CircleCollider.circleCast(getWorld(), currPos, collRadius, 8); 
         for(CircleCollider coll : hits){
             if(coll.tag == "Beam" && beingMined == false){
-                handleBeamCollision();
+                handleBeamCollision(coll);
                 return;
             }
             else if(coll.tag == "Ship"){
@@ -98,7 +98,7 @@ public class Asteroid extends Actor
         }
     }
     
-    private void handleBeamCollision(){
+    private void handleBeamCollision(CircleCollider coll){
         beingMined = true;
         movPerAct = new Vector2(0,0);
         Space space = (Space)getWorld();
@@ -107,7 +107,7 @@ public class Asteroid extends Actor
         space.updateCBC(1);
         space.updateScoreboard(10);
         space.addObject(new MiningParticles(ship.getRotation()), coll.getX(), coll.getY());
-        space.addObject(new AsteroidCrackingParticles(0, this, (int)size, ship), getX(), getY());
+        space.addObject(new AsteroidCrackingParticles(0, this, (int)widthAndHeight, ship), getX(), getY());
     }
     
     private void handleShipCollision(){

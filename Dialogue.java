@@ -1,20 +1,20 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
+import java.util.ArrayList;
 /**
  * Write a description of class Dialogue1_1 here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Dialogue1_1 extends AnimatedActor
+public class Dialogue extends DialogAnimator
 {
     /**
      * Act - do whatever the CannonParticles wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    public Dialogue1_1()
+    public Dialogue(String suffix, int numOfImages, ArrayList<GreenfootImage> images)
     {
-        super("Dialogue1-1/Dialogue1-1",".png", 61, 0, 15, 500, 174);
+        super("Dialogue" + suffix + "/Dialogue" + suffix,".png", numOfImages, 10, 500, 174, images);
     }
     public void act() 
     {
@@ -23,5 +23,5 @@ public class Dialogue1_1 extends AnimatedActor
         }
 
         // Add your action code here.
-    }    
+    }
 }

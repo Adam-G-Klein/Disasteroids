@@ -1,3 +1,4 @@
+
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
 /**
@@ -30,14 +31,12 @@ public abstract class AsteroidWorld extends World
         }
     }
     public void nextLevel() {
-       System.out.println(currentLevel);
        worldList.get(currentLevel).populate();
        Greenfoot.setWorld(worldList.get(currentLevel));
-       System.out.println(currentLevel);
     }
     public void previousLevel() {
        // repopulates the space level from the endscreen
-       int spaceLevelIndex = currentLevel - 2;
+       int spaceLevelIndex = currentLevel - 3;
        worldList.get(spaceLevelIndex).populate();
        Greenfoot.setWorld(worldList.get(spaceLevelIndex));
        //System.out.println(currentLevel);
@@ -56,7 +55,9 @@ public abstract class AsteroidWorld extends World
         worldList.add(new Manual2());
         worldList.add(new Manual3());
         worldList.add(new Space());
+        worldList.add(new Dialogue2());
         worldList.add(new EndScreen());
+        worldList.add(new Dialogue2());
     }
     public void populateStoryImage(GreenfootImage img, Integer imgX, Integer imgY){
        removeAllObjects();
