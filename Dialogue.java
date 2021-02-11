@@ -14,7 +14,7 @@ public class Dialogue extends DialogAnimator
      */
     public Dialogue(String suffix, int numOfImages, ArrayList<GreenfootImage> images)
     {
-        super("Dialogue" + suffix + "/Dialogue" + suffix,".png", numOfImages, 10, 500, 174, images);
+        super("Dialogue" + suffix + "/Dialogue" + suffix,".png", numOfImages, 4, 500, 174, images);
     }
     public void act() 
     {

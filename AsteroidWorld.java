@@ -46,6 +46,11 @@ public abstract class AsteroidWorld extends World
        worldList.get(spaceLevelIndex).populate();
        Greenfoot.setWorld(worldList.get(spaceLevelIndex));
     }
+    public void restart(){
+       int spaceLevelIndex = 0;
+       worldList.get(spaceLevelIndex).populate();
+       Greenfoot.setWorld(worldList.get(spaceLevelIndex));
+    }
     public void removeAllObjects() {
        removeObjects(getObjects(null));
     }

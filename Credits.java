@@ -21,13 +21,13 @@ public class Credits extends AsteroidWorld
     }
     public void act() {  
         if (Greenfoot.mouseClicked(button)) {
-            nextLevel();
+            restart();
         }
     }
     public void populate(){
-       img = new GreenfootImage("title-screen.png"); 
+       img = new GreenfootImage("credits-screen.png"); 
        populateStoryImage(img, 600, 600);
-       button = new Button(Color.BLUE, Color.BLUE.darker(), Color.WHITE, "Next", 100, 50);
+       button = new Button(Color.BLUE, Color.BLUE.darker(), Color.WHITE, "Restart", 100, 50);
        addObject(button, getWidth() - 55, getHeight() - 30);  
     }
 }
