@@ -22,7 +22,9 @@ public class Ship extends Actor
     private int beamColliderRadius = 30;
     private boolean miningStatus = false;
     private int asteroidsBeingMined = 0;
+    private boolean playerDead;
     public Ship(World w){
+        playerDead = false;
         img = new GreenfootImage("Spaceship-Undamaged.png");
         //img.scale(160,212);
         setImage(img);
@@ -38,7 +40,7 @@ public class Ship extends Actor
     public void act() 
     {
         placeColliders();
-        if(!miningStatus){
+        if(!miningStatus && !playerDead){
             if(Greenfoot.isKeyDown("a") || Greenfoot.isKeyDown("left")){
                 rotation = getRotation() - 2;
                 setRotation(rotation);
@@ -51,6 +53,9 @@ public class Ship extends Actor
     }
     public int getBeamAngle(){
         return rotation - 180;
+    }    
+    public void setPlayerDead(){
+        playerDead = true;
     }
     public Vector2 getPosition(){
         return new Vector2(getX(), getY());
